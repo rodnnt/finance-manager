@@ -41,27 +41,27 @@
                 <div class="navbar-right">
                     @guest
                     <!-- Botão de Cadastro de Usuário -->
-                    <button type="button" class="btn btn-secondary">
-                        <i class="bi bi-gear"></i> Cadastro
+                    <button type="button" class="btn btn-secondary bi bi-person-add">
+                        <span>Cadastro</span>
                     </button>
 
                     <!-- Botão de Login de Usuário -->
-                    <button type="button" class="btn btn-secondary">
-                        <i class="bi bi-clock"></i> Login
+                    <button type="button" class="btn btn-secondary bi bi-person-check">
+                        <span>Login</span>
                     </button>                  
                     @endguest
 
                     @auth
                     <!--  Usuário Autenticado -->
                     <div class="btn-group">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">
-                            <div>Nome do Usuário</div>
+                        <button type="button" class="btn btn-secondary dropdown-toggle bi bi-person-gear" data-bs-toggle="dropdown">
+                            <span>Nome do Usuário</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Editar Perfil</a>
+                            <a class="dropdown-item bi bi-person-lines-fill" href="#"> Editar Perfil</a>
                             <form method="POST" action="#">
                                     @csrf
-                                    <button type="submit" class="dropdown-item">Logout</button>
+                                    <button type="submit" class="dropdown-item bi bi-person-dash"> Logout</button>
                             </form>
                         </div>
                     </div>

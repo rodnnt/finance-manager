@@ -1,6 +1,4 @@
 html, body {
-    height: 100%;
-    width: 100%;
     margin: 0;
     padding: 0;
 }
@@ -13,10 +11,6 @@ body {
 .content-fluid {
     display: flex;
     flex-grow: 1;
-}
-
-.row {
-    flex-grow: 10;
 }
 
 .sidebar {
@@ -42,10 +36,6 @@ footer {
     align-items: center;
 }
 
-.navbar-left {
-    margin-right: 10px;
-}
-
 .navbar-right {
     display: flex;
     align-items: center;
@@ -53,10 +43,6 @@ footer {
 
 .navbar-right .btn {
     margin-left: 10px;
-}
-
-.navbar-brand {
-    font-size: 1.5rem;
 }
 
 .navbar-right .btn-group {
