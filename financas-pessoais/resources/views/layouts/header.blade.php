@@ -27,9 +27,9 @@
                         <a class="nav-link @if(Route::is('categories.*')) active @endif" href="/categories">Categorias</a>
                     </li>
 
-                    <!-- Link para Relatórios -->
+                    <!-- Link para Contas Bancárias -->
                     <li class="nav-item">
-                        <a class="nav-link @if(Route::is('reports.*')) active @endif" href="#">Relatórios</a>
+                        <a class="nav-link @if(Route::is('bank-accounts.*')) active @endif" href="/bank-accounts">Contas Bancárias</a>
                     </li>
                 </ul>
 
