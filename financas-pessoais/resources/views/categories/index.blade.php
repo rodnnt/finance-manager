@@ -15,10 +15,10 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ID CATEGORIA</th>
-                <th>NOME</th>
-                <th>DESCRIÇÃO</th>
-                <th colspan="2">AÇÕES</th>
+                <th>Código</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th colspan="2" class="text-center">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -27,13 +27,13 @@
                 <td> {{$category->id}}</td>
                 <td> {{$category->name}}</td>
                 <td> {{$category->description}}</td>
-                <td>
+                <td class="text-right">
                     <a class='btn btn-primary' href="/categories/edit/{{$category->id}}">
                         <i class='bi bi-pencil-square'></i>
                     </a> 
                 </td>
 
-                <td>
+                <td class="text-left">
                     <form action="/categories/{{$category->id}}" method="post">
                         @csrf
                         @method('DELETE')
