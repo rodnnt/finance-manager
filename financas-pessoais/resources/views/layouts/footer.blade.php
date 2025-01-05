@@ -36,7 +36,9 @@
         </div>
         <!-- Linha de Copyright -->
         <div class="text-center mt-4 border-top pt-3 small text-white">
-            &copy; <script>document.write(new Date().getFullYear());</script> Gestão Financeira. Todos os direitos reservados.
+            &copy; <script>
+                document.write(new Date().getFullYear());
+            </script> Gestão Financeira. Todos os direitos reservados.
         </div>
     </div>
 </footer>
