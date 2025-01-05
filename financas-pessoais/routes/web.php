@@ -20,7 +20,7 @@ Route::put( '/transactions/update/{id}', [TransactionController::class, 'update'
 
 //Categorias
 //Route::get('/', [CategoryController::class, 'index']); (leva direto pra essa tela)
-Route::get( '/categories', [ CategoryController::class, 'index' ] ) ->middleware('auth');
+Route::get( '/categories', [ CategoryController::class, 'index' ] ); //->middleware('auth');
 Route::get( '/categories/create', [ CategoryController::class, 'create' ] );
 Route::post('/categories', [CategoryController::class, 'store' ]);
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy' ]);
