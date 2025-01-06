@@ -13,8 +13,8 @@
             <div class="col-md-4">
                 <h5 class="fw-bold mb-3 text-white">Links Rápidos</h5>
                 <ul class="list-unstyled small">
-                    <li><a href="#" class="text-decoration-none text-light">Dashboard</a></li>
-                    <li><a href="/transactions#" class="text-decoration-none text-light">Transações</a></li>
+                    <li><a href="/" class="text-decoration-none text-light">Dashboard</a></li>
+                    <li><a href="/transactions" class="text-decoration-none text-light">Transações</a></li>
                     <li><a href="/categories" class="text-decoration-none text-light">Categorias</a></li>
                     <li><a href="/bank-accounts" class="text-decoration-none text-light">Contas Bancárias</a></li>
                 </ul>

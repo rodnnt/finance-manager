@@ -33,9 +33,9 @@
                     <td>{{ $transaction->transaction_date }}</td>
                     <td>{{ $transaction->name }}</td>
                     <td>{{ $transaction->type }}</td>
-                    <td>{{ $transaction->category_id}}</td>
+                    <td>{{ $transaction->category_name}}</td>
                     <td>R$ {{ number_format($transaction->value, 2, ',', '.') }}</td>
-                    <td>{{ $transaction->account_id}}</td>
+                    <td>{{ $transaction->account_name}}</td>
                     <td>{{ $transaction->description}}</td>
                     <td class="text-right">
                         <a class="btn btn-primary" href="/transactions/edit/{{$transaction->id}}">

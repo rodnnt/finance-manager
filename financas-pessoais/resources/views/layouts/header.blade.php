@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <!-- Logo da Aplicação talvez colocar imagem png aqui -->
-            <a class="navbar-brand" href="#">Financial Manager</a>
+            <a class="navbar-brand" href="/">Financial Manager</a>
 
             <!-- Botão para Menu Responsivo -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,11 +12,6 @@
             <!-- Navegação -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
-                    <!-- Link para Dashboard -->
-                    <li class="nav-item">
-                        <a class="nav-link @if(Route::is('dashboard')) active @endif" href="#">Dashboard</a>
-                    </li>
-                    
                     <!-- Link para Transações -->
                     <li class="nav-item">
                         <a class="nav-link @if(Route::is('transactions.*')) active @endif" href="/transactions">Transações</a>

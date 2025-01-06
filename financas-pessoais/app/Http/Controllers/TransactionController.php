@@ -11,9 +11,17 @@ use App\Models\Account;
 class TransactionController extends Controller
 {
     public function index() {
-        $transactions = Transaction::all();
+        $transactions = Transaction::join('categories', 'transactions.category_id', '=', 'categories.id')
+            ->join('bank_accounts', 'transactions.account_id', '=', 'bank_accounts.id')
+            ->select(
+                'transactions.*',
+                'categories.name as category_name',
+                'bank_accounts.account_name as account_name'
+            )
+            ->get();
+    
         return view('transactions.index', compact('transactions'));
-    }
+    }    
 
     public function create() {
         $categories = Category::all();
