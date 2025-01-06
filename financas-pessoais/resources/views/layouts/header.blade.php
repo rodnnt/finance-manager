@@ -19,7 +19,7 @@
                     
                     <!-- Link para Transações -->
                     <li class="nav-item">
-                        <a class="nav-link @if(Route::is('transactions.*')) active @endif" href="#">Transações</a>
+                        <a class="nav-link @if(Route::is('transactions.*')) active @endif" href="/transactions">Transações</a>
                     </li>
 
                     <!-- Link para Categorias -->
