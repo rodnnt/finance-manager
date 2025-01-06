@@ -2,40 +2,39 @@
 
 @section('title', 'Categorias') 
 
+@section('floating-button-href', '/categories/create')
+
 @section('content') 
 
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>Lista de Categorias</h1>
-        <a href="/categories/create" type="button" class="btn btn-primary">
-            <i class="bi bi-plus-square"></i>
-            <span>Nova Categoria</span>
-        </a>
+        <h1 class="fs-4 fs-md-3 fs-lg-2">Lista de Categorias</h1>
+
     </div>
 
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Código</th>
-                    <th>Nome</th>
-                    <th>Descrição</th>
-                    <th colspan="2" class="text-center">Ações</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4">Código</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4">Nome</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4">Descrição</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4 text-center" colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($categories as $category)
                 <tr>
-                    <td> {{$category->id}}</td>
-                    <td> {{$category->name}}</td>
-                    <td> {{$category->description}}</td>
-                    <td class="text-right">
+                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->id}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->name}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->description}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">
                         <a class="btn btn-primary" href="/categories/edit/{{$category->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
 
-                    <td class="text-left">
+                    <td class="fs-6 fs-md-5 fs-lg-4">
                         <form action="/categories/{{$category->id}}" method="post">
                             @csrf
                             @method('DELETE')

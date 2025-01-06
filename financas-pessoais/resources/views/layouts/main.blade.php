@@ -29,6 +29,12 @@
                         @include('layouts.message')
                         @yield('content')
                     </div>
+
+                    @if (view()->hasSection('floating-button-href'))
+                        <a href="@yield('floating-button-href')" type="button" class="btn btn-primary btn-floating fs-6 fs-md-5 fs-lg-4">
+                            <i class="bi bi-plus-circle"></i>
+                        </a>
+                    @endif
                 </main>
             </div>
         </div>

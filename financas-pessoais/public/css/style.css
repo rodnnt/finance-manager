@@ -1,4 +1,5 @@
 html, body {
+    height: 100%;
     margin: 0;
     padding: 0;
 }
@@ -48,4 +49,20 @@ footer {
 .navbar-right .btn-group {
     display: flex;
     align-items: center;
+}
+
+.btn-floating {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    border-radius: 100%;
+    padding: 10px 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+    .btn-floating {
+        padding: 12px 18px;
+    }
 }
