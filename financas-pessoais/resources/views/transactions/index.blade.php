@@ -28,7 +28,7 @@
             <tbody>
                 @foreach($transactions as $transaction)
                 <tr>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->transaction_date }}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->transaction_date->format('d/m/Y') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->name }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->type }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->category_name}}</td>

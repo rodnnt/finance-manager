@@ -15,7 +15,7 @@
         <div class="mb-3">
             <label for="transaction_date" class="form-label fs-6 fs-md-5 fs-lg-4">Data:</label>
             <input type="date" class="form-control" name="transaction_date"
-                id="transaction_date" value="{{$transaction->transaction_date}}" required>
+                id="transaction_date" value="{{ $transaction->transaction_date ? $transaction->transaction_date->format('Y-m-d') : '' }}"" required>
         </div>
 
         <div class="mb-3">
@@ -67,6 +67,17 @@
                 placeholder="Informe a descrição da transação" rows="4">{{ $transaction->description ?? ''  }}</textarea>
         </div>
 
+        <div class="mb-3">
+            <label for="created_at" class="form-label fs-6 fs-md-5 fs-lg-4">Data de Criação:</label>
+            <input type="text" class="form-control" name="created_at"
+                id="created_at" value='{{$transaction->created_at}}' disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="updated_at" class="form-label fs-6 fs-md-5 fs-lg-4">Última Atualização:</label>
+            <input type="text" class="form-control" name="updated_at"
+            id="updated_at" value='{{$transaction->updated_at}}' disabled>
+        </div>
 
         <div class="mb-3 d-flex justify-content-between mt-4">
             <button type="submit" class="btn btn-primary">

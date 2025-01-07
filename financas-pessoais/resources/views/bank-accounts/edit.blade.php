@@ -79,13 +79,13 @@
         </div>
 
         <div class="mb-3">
-            <label for="created_at">Data de Criação:</label>
+            <label for="created_at" class="form-label fs-6 fs-md-5 fs-lg-4">Data de Criação:</label>
             <input type="text" class="form-control" name="created_at"
                 id="created_at" value='{{$bankAccount->created_at}}' disabled>
         </div>
 
         <div class="mb-3">
-            <label for="updated_at">Última Atualização:</label>
+            <label for="updated_at" class="form-label fs-6 fs-md-5 fs-lg-4">Última Atualização:</label>
             <input type="text" class="form-control" name="updated_at"
             id="updated_at" value='{{$bankAccount->updated_at}}' disabled>
         </div>

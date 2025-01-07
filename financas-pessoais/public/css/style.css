@@ -7,28 +7,51 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    padding-top: 40px;
+}
+
+header {
+    position: fixed;  /* Fixar o header na tela */
+    top: 0;           /* Posicionar no topo */
+    left: 0;          /* Posicionar à esquerda */
+    width: 100%;      /* Garantir que ocupe toda a largura da tela */
+    z-index: 1000;    /* Certificar que o header fique acima de outros elementos */
+    background-color: #343a40;  /* Cor de fundo do header, conforme seu código */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Um sombreamento sutil */
 }
 
 .content-fluid {
+    flex: 1;
     display: flex;
-    flex-grow: 1;
+    flex-direction: column;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
-.sidebar {
+.row {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+.sidebar-menu {
     height: 100%;
-    position: sticky;
+    position: fixed;
     top: 0;
+    padding-top: 70px;
 }
 
 main {
     background-color: #cecbcb;
+    min-height: 300px;
 }
 
 footer {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 10px;
+    padding: 20px 0;
     margin-top: auto;
 }
 

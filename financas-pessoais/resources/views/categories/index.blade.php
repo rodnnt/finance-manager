@@ -16,7 +16,6 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="fs-6 fs-md-5 fs-lg-4">Código</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Nome</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Descrição</th>
                     <th class="fs-6 fs-md-5 fs-lg-4 text-center" colspan="2">Ações</th>
@@ -25,7 +24,6 @@
             <tbody>
                 @foreach($categories as $category)
                 <tr>
-                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->id}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->description}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">

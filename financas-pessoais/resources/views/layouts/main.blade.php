@@ -16,7 +16,7 @@
     <body>
         @include('layouts.header')
 
-        <div class="container-fluid">
+        <div class="content-fluid">
             <div class="row">
                 <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar py-4 d-none d-md-block">
                     <div class="position-sticky">
