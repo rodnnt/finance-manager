@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 //Transações
 //Route::get('/', [TransactionController::class, 'index']); (leva direto pra essa tela)
-Route::get( '/transactions', [ TransactionController::class, 'index'] );
+Route::get( '/transactions', [ TransactionController::class, 'index'] ) ->middleware('auth');;
 Route::get( '/transactions/create', [ TransactionController::class, 'create' ] );
 Route::post( '/transactions', [TransactionController::class, 'store' ]);
 Route::delete( '/transactions/{id}', [TransactionController::class, 'destroy' ]);
@@ -20,7 +20,7 @@ Route::put( '/transactions/update/{id}', [TransactionController::class, 'update'
 
 //Categorias
 //Route::get('/', [CategoryController::class, 'index']); (leva direto pra essa tela)
-Route::get( '/categories', [ CategoryController::class, 'index' ] ); //->middleware('auth');
+Route::get( '/categories', [ CategoryController::class, 'index' ] ) ->middleware('auth');
 Route::get( '/categories/create', [ CategoryController::class, 'create' ] );
 Route::post('/categories', [CategoryController::class, 'store' ]);
 Route::delete('/categories/{id}', [CategoryController::class, 'destroy' ]);
@@ -29,9 +29,19 @@ Route::put('/categories/update/{id}', [CategoryController::class, 'update' ]);
 
 //Contas Bancárias
 //Route::get('/', [AccountController::class, 'index']); (leva direto pra essa tela)
-Route::get( '/bank-accounts', [ AccountController::class, 'index' ] ); //->middleware('auth');
+Route::get( '/bank-accounts', [ AccountController::class, 'index' ] ) ->middleware('auth');
 Route::get( '/bank-accounts/create', [ AccountController::class, 'create' ] );
 Route::post('/bank-accounts', [AccountController::class, 'store' ]);
 Route::delete('/bank-accounts/{id}', [AccountController::class, 'destroy' ]);
 Route::get('/bank-accounts/edit/{id}', [AccountController::class, 'edit' ]);
 Route::put('/bank-accounts/update/{id}', [AccountController::class, 'update' ]);
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});

@@ -36,14 +36,20 @@
                 <div class="navbar-right">
                     @guest
                     <!-- Botão de Cadastro de Usuário -->
-                    <button type="button" class="btn btn-secondary bi bi-person-add">
-                        <span>Cadastro</span>
-                    </button>
+                    <form method="GET" action="/register">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary bi bi-person-add">
+                            <span>Cadastro</span>
+                        </button>
+                    </form>
 
                     <!-- Botão de Login de Usuário -->
-                    <button type="button" class="btn btn-secondary bi bi-person-check">
-                        <span>Login</span>
-                    </button>                  
+                    <form method="GET" action="/login">
+                        @csrf
+                        <button type="submit" class="btn btn-secondary bi bi-person-check">
+                            <span>Login</span>
+                        </button>
+                    </form>                 
                     @endguest
 
                     @auth
@@ -53,8 +59,8 @@
                             <span>Nome do Usuário</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item bi bi-person-lines-fill" href="#"> Editar Perfil</a>
-                            <form method="POST" action="#">
+                            <a class="dropdown-item bi bi-person-lines-fill" href="/#"> Editar Perfil</a>
+                            <form method="POST" action="/logout">
                                     @csrf
                                     <button type="submit" class="dropdown-item bi bi-person-dash"> Logout</button>
                             </form>
