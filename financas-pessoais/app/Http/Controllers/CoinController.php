@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Coin;
+use Illuminate\Support\Facades\Auth;
 
 class CoinController extends Controller
 {
@@ -17,6 +18,10 @@ class CoinController extends Controller
     }
 
     public function store(Request $request) {
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/coins')->withErrors('Somente administradores têm permissão para cadastrar moedas.');
+        }
+
         $request->validate([
             'code' => ['required', 'unique:coins', 'regex:/^[A-Z]{3,5}$/'],
             'name' => 'required|string',
@@ -43,6 +48,10 @@ class CoinController extends Controller
     }
 
     public function update(Request $request, $id) {
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/coins')->withErrors('Somente administradores têm permissão para editar moedas.');
+        }
+
         $request->validate([
             'code' => ['required', 'regex:/^[A-Z]{3,5}$/'],
             'name' => 'required|string',

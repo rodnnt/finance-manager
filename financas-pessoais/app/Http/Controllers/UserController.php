@@ -28,6 +28,9 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $defaultType = 'Cliente';
+        $defaultStatus = 'Ativo';
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -37,12 +40,14 @@ class UserController extends Controller
             'status' => 'required|in:Ativo,Inativo',
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'preferred_coin_id' => 'nullable|exists:coins,id',
+            'type' => ['nullable', 'in:Admin,Cliente,Outro'],
         ]);
 
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->type = $request->type;
         $user->cep_id = $request->cep_id;
         $user->address_number = $request->address_number;
         $user->address_complement = $request->address_complement;
@@ -78,6 +83,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'nullable|string|min:8|confirmed',
+            'type' => ['nullable', 'in:Admin,Cliente,Outro'],
             'cep_id' => 'nullable|exists:ceps,id',
             'address_number' => 'nullable|string',
             'status' => 'required|in:Ativo,Inativo',
@@ -91,6 +97,7 @@ class UserController extends Controller
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }
+        $user->type = $request->type;
         $user->cep_id = $request->cep_id;
         $user->address_number = $request->address_number;
         $user->address_complement = $request->address_complement;
