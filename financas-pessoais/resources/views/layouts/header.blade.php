@@ -12,19 +12,36 @@
             <!-- Navegação -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
-                    <!-- Link para Transações -->
-                    <li class="nav-item">
-                        <a class="nav-link @if(Route::is('transactions.*')) active @endif" href="/transactions">Transações</a>
+                    
+                    <!-- Menu de Cadastros -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle @if(Route::is('accounts.*') || Route::is('categories.*')) active @endif" href="#" id="cadastrosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cadastros
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="cadastrosDropdown">
+                            <li><a class="dropdown-item @if(Route::is('accounts.*')) active @endif" href="/accounts">Contas</a></li>
+                            <li><a class="dropdown-item @if(Route::is('categories.*')) active @endif" href="/categories">Categorias</a></li>
+                        </ul>
                     </li>
 
-                    <!-- Link para Categorias -->
-                    <li class="nav-item">
-                        <a class="nav-link @if(Route::is('categories.*')) active @endif" href="/categories">Categorias</a>
+                    <!-- Menu de Programas -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle @if(Route::is('transactions.*')) active @endif" href="#" id="programasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Programas
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="programasDropdown">
+                            <li><a class="dropdown-item @if(Route::is('transactions.*')) active @endif" href="/transactions">Transações</a></li>
+                        </ul>
                     </li>
 
-                    <!-- Link para Contas -->
-                    <li class="nav-item">
-                        <a class="nav-link @if(Route::is('accounts.*')) active @endif" href="/accounts">Contas</a>
+                    <!-- Menu de Relatórios -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle @if(Route::is('reports.*')) active @endif" href="#" id="relatoriosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Relatórios
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="relatoriosDropdown">
+                            <li><a class="dropdown-item @if(Route::is('reports.*')) active @endif" href="/dashboard">Dashboard</a></li>
+                        </ul>
                     </li>
                 </ul>
 

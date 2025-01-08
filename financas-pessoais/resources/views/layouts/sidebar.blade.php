@@ -9,13 +9,13 @@
 
         <!-- Seção: Links Principais -->
         <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
-                <i class="bi bi-speedometer2"></i> Dashboard
+            <a class="nav-link" href="/transactions">
+                <i class="bi bi-bar-chart"></i> Transações
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/reports">
-                <i class="bi bi-bar-chart"></i> Relatórios
+            <a class="nav-link" href="/dashboard">
+                <i class="bi bi-speedometer2"></i> Dashboard
             </a>
         </li>
         <li class="nav-item">
@@ -35,15 +35,20 @@
                 <i class="bi bi-box"></i> Produtos
             </a>
         </li>
-
+        
+        @auth
         <!-- Linha Divisória -->
         <hr class="my-2">
 
         <!-- Logout -->
         <li class="nav-item">
-            <a class="nav-link text-danger" href="/logout">
-                <i class="bi bi-box-arrow-right"></i> Sair
-            </a>
+            <form method="POST" action="/logout">
+                @csrf
+                <button type="submit" class="nav-link text-danger border-0 bg-transparent">
+                    <i class="bi bi-box-arrow-right"></i> Sair
+                </button>
+            </form>
         </li>
+        @endauth
     </ul>
 </div>
