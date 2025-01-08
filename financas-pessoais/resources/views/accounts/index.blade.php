@@ -1,14 +1,14 @@
 @extends('layouts.main') 
 
-@section('title', 'Contas Bancárias') 
+@section('title', 'Contas') 
 
-@section('floating-button-href', '/bank-accounts/create')
+@section('floating-button-href', '/accounts/create')
 
 @section('content') 
 
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="fs-4 fs-md-3 fs-lg-2">Lista de Contas Bancárias</h1>
+        <h1 class="fs-4 fs-md-3 fs-lg-2">Lista de Contas</h1>
     </div>
 
     <div class="table-responsive">
@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($bankAccounts as $account)
+                @foreach($financial_accounts as $account)
                 <tr>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_name }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->bank_code }}</td>
@@ -34,15 +34,15 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_type}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">R$ {{ number_format($account->initial_balance, 2, ',', '.') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">
-                        <a class="btn btn-primary" href="/bank-accounts/edit/{{$account->id}}">
+                        <a class="btn btn-primary" href="/accounts/edit/{{$account->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
                     <td class="fs-6 fs-md-5 fs-lg-4">
-                        <form action="/bank-accounts/{{$account->id}}" method="post">
+                        <form action="/accounts/{{$account->id}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta conta bancária? Essa ações excluirá todas as transações desta conta')" type="submit">
+                            <button class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta conta? Essa ações excluirá todas as transações desta conta')" type="submit">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </form>

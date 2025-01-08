@@ -12,11 +12,11 @@ class TransactionController extends Controller
 {
     public function index() {
         $transactions = Transaction::join('categories', 'transactions.category_id', '=', 'categories.id')
-            ->join('bank_accounts', 'transactions.account_id', '=', 'bank_accounts.id')
+            ->join('financial_accounts', 'transactions.account_id', '=', 'financial_accounts.id')
             ->select(
                 'transactions.*',
                 'categories.name as category_name',
-                'bank_accounts.account_name as account_name'
+                'financial_accounts.account_name as account_name'
             )
             ->get();
     
@@ -25,8 +25,8 @@ class TransactionController extends Controller
 
     public function create() {
         $categories = Category::all();
-        $bankAccounts = Account::all();
-        return view('transactions.create', compact('categories', 'bankAccounts'));       
+        $financial_accounts = Account::all();
+        return view('transactions.create', compact('categories', 'financial_accounts'));       
     }
 
     public function store(Request $request) {
@@ -51,10 +51,10 @@ class TransactionController extends Controller
 
     public function edit( $id ) {
         $categories = Category::all();
-        $bankAccounts = Account::all();
+        $financial_accounts = Account::all();
         $transaction = Transaction::findOrFail( $id );
 
-        return view( '/transactions.edit', [ 'transaction' => $transaction, 'categories' => $categories, 'bankAccounts' => $bankAccounts ] );
+        return view( '/transactions.edit', [ 'transaction' => $transaction, 'categories' => $categories, 'financial_accounts' => $financial_accounts ] );
     }
 
     public function update( Request $request ) {

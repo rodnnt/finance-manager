@@ -9,5 +9,5 @@ class Account extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    protected $table = 'bank_accounts';
+    protected $table = 'financial_accounts';
 }

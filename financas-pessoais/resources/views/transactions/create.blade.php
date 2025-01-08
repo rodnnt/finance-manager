@@ -57,10 +57,10 @@
         </div>
 
         <div class="mb-3">
-            <label for="account_id" class="form-label fs-6 fs-md-5 fs-lg-4">Categoria:</label>
+            <label for="account_id" class="form-label fs-6 fs-md-5 fs-lg-4">Conta:</label>
             <select class="form-select" id="account_id" name="account_id" required>
                 <option value="" selected disabled>Selecione uma conta</option>
-                @foreach($bankAccounts as $account)
+                @foreach($financial_accounts as $account)
                 <option value="{{$account->id}}">{{$account->account_name}}</option>
                 @endforeach
             </select>

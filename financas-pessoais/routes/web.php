@@ -29,12 +29,12 @@ Route::put('/categories/update/{id}', [CategoryController::class, 'update' ]);
 
 //Contas Bancárias
 //Route::get('/', [AccountController::class, 'index']); (leva direto pra essa tela)
-Route::get( '/bank-accounts', [ AccountController::class, 'index' ] ) ->middleware('auth');
-Route::get( '/bank-accounts/create', [ AccountController::class, 'create' ] );
-Route::post('/bank-accounts', [AccountController::class, 'store' ]);
-Route::delete('/bank-accounts/{id}', [AccountController::class, 'destroy' ]);
-Route::get('/bank-accounts/edit/{id}', [AccountController::class, 'edit' ]);
-Route::put('/bank-accounts/update/{id}', [AccountController::class, 'update' ]);
+Route::get( '/accounts', [ AccountController::class, 'index' ] ) ->middleware('auth');
+Route::get( '/accounts/create', [ AccountController::class, 'create' ] );
+Route::post('/accounts', [AccountController::class, 'store' ]);
+Route::delete('/accounts/{id}', [AccountController::class, 'destroy' ]);
+Route::get('/accounts/edit/{id}', [AccountController::class, 'edit' ]);
+Route::put('/accounts/update/{id}', [AccountController::class, 'update' ]);
 
 Route::middleware([
     'auth:sanctum',

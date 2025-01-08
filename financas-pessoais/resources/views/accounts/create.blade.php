@@ -1,21 +1,21 @@
 @extends('layouts.main') 
 
-@section('title', 'Nova Conta Bancária') 
+@section('title', 'Nova Conta') 
 
 @section('content') 
 
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <a href='/bank-accounts' type="button" class="btn btn-outline-secondary">
+        <a href='/accounts' type="button" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left-square"></i>
         </a>
 
-        <h1 class="fs-4 fs-md-3 fs-lg-2">Nova Conta Bancária</h1>
+        <h1 class="fs-4 fs-md-3 fs-lg-2">Nova Conta</h1>
         
     </div>
 
-    <form action='/bank-accounts' method='post'>
+    <form action='/accounts' method='post'>
 
         @csrf
 

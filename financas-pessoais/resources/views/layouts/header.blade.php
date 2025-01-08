@@ -22,9 +22,9 @@
                         <a class="nav-link @if(Route::is('categories.*')) active @endif" href="/categories">Categorias</a>
                     </li>
 
-                    <!-- Link para Contas Bancárias -->
+                    <!-- Link para Contas -->
                     <li class="nav-item">
-                        <a class="nav-link @if(Route::is('bank-accounts.*')) active @endif" href="/bank-accounts">Contas Bancárias</a>
+                        <a class="nav-link @if(Route::is('accounts.*')) active @endif" href="/accounts">Contas</a>
                     </li>
                 </ul>
 
