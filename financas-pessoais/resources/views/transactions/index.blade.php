@@ -22,7 +22,7 @@
                     <th class="fs-6 fs-md-5 fs-lg-4">Valor</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Conta</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Descrição</th>
-                    <th class="fs-6 fs-md-5 fs-lg-4 text-center" colspan="2">Ações</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 100px;" colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,12 +35,12 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">R$ {{ number_format($transaction->value, 2, ',', '.') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->account_name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->description}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">
+                    <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <a class="btn btn-primary" href="/transactions/edit/{{$transaction->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">
+                    <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <form action="/transactions/{{$transaction->id}}" method="post">
                             @csrf
                             @method('DELETE')

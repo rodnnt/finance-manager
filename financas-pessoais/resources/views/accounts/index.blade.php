@@ -21,7 +21,7 @@
                     <th class="fs-6 fs-md-5 fs-lg-4">Conta</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Tipo</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Saldo Inicial</th>
-                    <th class="fs-6 fs-md-5 fs-lg-4 text-center" colspan="2">Ações</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 100px;" colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,12 +33,12 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_number }}-{{ $account->account_digit }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_type}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">R$ {{ number_format($account->initial_balance, 2, ',', '.') }}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">
+                    <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <a class="btn btn-primary" href="/accounts/edit/{{$account->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">
+                    <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <form action="/accounts/{{$account->id}}" method="post">
                             @csrf
                             @method('DELETE')

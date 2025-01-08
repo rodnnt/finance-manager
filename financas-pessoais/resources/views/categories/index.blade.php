@@ -18,7 +18,7 @@
                 <tr>
                     <th class="fs-6 fs-md-5 fs-lg-4">Nome</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Descrição</th>
-                    <th class="fs-6 fs-md-5 fs-lg-4 text-center" colspan="2">Ações</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 100px;" colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,13 +26,13 @@
                 <tr>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->description}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">
+                    <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <a class="btn btn-primary" href="/categories/edit/{{$category->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
 
-                    <td class="fs-6 fs-md-5 fs-lg-4">
+                    <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <form action="/categories/{{$category->id}}" method="post">
                             @csrf
                             @method('DELETE')
