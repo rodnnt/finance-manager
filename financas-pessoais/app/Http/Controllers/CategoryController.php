@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
     public function index() {
-        $categories = Category::all();
+        $categories = Category::where(function($query) {
+            $query->whereNull('created_by')
+                  ->orWhere('created_by', Auth::id());
+        })
+        ->get();
         return view('categories.index', compact('categories'));
     }
 
@@ -21,6 +26,8 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request->name;
         $category->description = $request->description;
+        $category->created_by = $request->created_by;
+        $category->type = $request->type ?? 'Individual';
         
         $category->save();
 

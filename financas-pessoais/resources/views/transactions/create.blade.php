@@ -67,7 +67,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="description">Descrição:</label>
+            <label for="description" class="form-label fs-6 fs-md-5 fs-lg-4">Descrição:</label>
             <textarea class="form-control" name="description" id="description"
                 placeholder="Informe a descrição da transação" rows="4"></textarea>
         </div>

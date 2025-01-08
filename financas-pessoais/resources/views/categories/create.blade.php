@@ -19,6 +19,8 @@
 
         @csrf
 
+        <input type="hidden" name="created_by" value="{{ Auth::id() }}">
+
         <div class="form-group mb-3">
             <label for="name" class="form-label fs-6 fs-md-5 fs-lg-4">Nome da Categoria:</label>
             <input type="text" class="form-control" name="name" id="name" placeholder="Informe o nome da categoria" required>
@@ -26,8 +28,8 @@
 
         <div class="form-group mb-3">
             <label for="description" class="form-label fs-6 fs-md-5 fs-lg-4">Descrição da Categoria:</label>
-            <input type="text" class="form-control" name="description" id="description" 
-                placeholder="Informe a descrição da categoria" required>
+            <textarea class="form-control" name="description" id="description"
+                placeholder="Informe a descrição da categoria" rows="4" required></textarea>
         </div>
 
         <div class="form-group d-flex justify-content-between mt-4">

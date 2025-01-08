@@ -21,7 +21,7 @@ class TransactionController extends Controller
             ->get();
     
         return view('transactions.index', compact('transactions'));
-    }    
+    }
 
     public function create() {
         $categories = Category::all();
