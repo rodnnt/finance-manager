@@ -56,7 +56,7 @@
                     <!--  Usuário Autenticado -->
                     <div class="btn-group">
                         <button type="button" class="btn btn-secondary dropdown-toggle bi bi-person-gear" data-bs-toggle="dropdown">
-                            <span>Nome do Usuário</span>
+                            <span>{{ Auth::user()->name }}</span>
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item bi bi-person-lines-fill" href="/#"> Editar Perfil</a>
