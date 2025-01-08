@@ -10,14 +10,20 @@ use App\Models\Coin;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+        return view('users.index', compact('users'));
+    }
+
     public function create()
     {
         $ceps = Cep::all();
         $coins = Coin::all();
-        $defaultType = 'client';
-        $defaultStatus = 'active';
+        $defaultType = 'Cliente';
+        $defaultStatus = 'Ativo';
 
-        return view('auth.register', compact('ceps', 'coins', 'defaultType', 'defaultStatus'));
+        return view('/users/create', compact('ceps', 'coins', 'defaultType', 'defaultStatus'));
     }
 
     public function store(Request $request)
@@ -26,9 +32,9 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'cep_id' => 'required|exists:ceps,id',
-            'address_number' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'cep_id' => 'nullable|exists:ceps,id',
+            'address_number' => 'nullable|string',
+            'status' => 'required|in:Ativo,Inativo',
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'preferred_coin_id' => 'nullable|exists:coins,id',
         ]);
@@ -48,16 +54,22 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->route('login')->with('msg', 'Usuário registrado com sucesso!');
+        return redirect( '/users' )->with('msg', 'Usuário registrado com sucesso!'); //validar isso
     }
 
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+        return redirect( '/users' )->with('msg', 'Usuário excluído com sucesso!');
+    }
 
     public function edit($id)
     {
         $user = User::findOrFail($id);
         $ceps = Cep::all();
         $coins = Coin::all();
-        return view('users.edit', compact('user', 'ceps', 'coins'));
+        return view( '/users.edit', [ 'user' => $user, 'ceps' => $ceps, 'coins' => $coins ] );
     }
 
     public function update(Request $request, $id)
@@ -66,9 +78,9 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'password' => 'nullable|string|min:8|confirmed',
-            'cep_id' => 'required|exists:ceps,id',
-            'address_number' => 'required|string',
-            'status' => 'required|in:active,inactive',
+            'cep_id' => 'nullable|exists:ceps,id',
+            'address_number' => 'nullable|string',
+            'status' => 'required|in:Ativo,Inativo',
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'preferred_coin_id' => 'nullable|exists:coins,id',
         ]);
@@ -90,19 +102,6 @@ class UserController extends Controller
         
         $user->save();
 
-        return redirect()->route('users.index')->with('msg', 'Usuário atualizado com sucesso!');
-    }
-
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect()->route('users.index')->with('msg', 'Usuário excluído com sucesso!');
-    }
-
-    public function index()
-    {
-        $users = User::all();
-        return view('users.index', compact('users'));
+        return redirect('/users')->with('msg', 'Usuário atualizado com sucesso!');
     }
 }

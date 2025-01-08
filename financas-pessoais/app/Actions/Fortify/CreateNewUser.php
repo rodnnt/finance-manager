@@ -23,11 +23,11 @@ class CreateNewUser implements CreatesNewUsers
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
-            'type' => ['required', 'in:admin,client,other'],
-            'cep_id' => ['required', 'exists:ceps,id'],
-            'address_number' => ['required', 'string'],
+            'type' => ['nullable', 'in:Admin,Cliente,Outro'],
+            'cep_id' => ['nullable', 'exists:ceps,id'],
+            'address_number' => ['nullable', 'string'],
             'address_complement' => ['nullable', 'string'],
-            'status' => ['required', 'in:active,inactive'],
+            'status' => ['nullable', 'in:Ativo,Inativo'],
             'preferred_coin_id' => ['nullable', 'exists:coins,id'],
             'profile_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
@@ -38,17 +38,20 @@ class CreateNewUser implements CreatesNewUsers
             $profileImagePath = $input['profile_image']->store('profile_images', 'public');
         }
 
+        $defaultType = 'Cliente';
+        $defaultStatus = 'Ativo';
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
-            'type' => $input['type'],
-            'cep_id' => $input['cep_id'],
-            'address_number' => $input['address_number'],
-            'address_complement' => $input['address_complement'],
-            'status' => $input['status'],
-            'profile_image' => $profileImagePath,
-            'preferred_coin_id' => $input['preferred_coin_id'],
+            'type' => $input['type'] ?? $defaultType,
+            'cep_id' => $input['cep_id'] ?? null,
+            'address_number' => $input['address_number'] ?? null,
+            'address_complement' => $input['address_complement'] ?? null,
+            'status' => $input['status'] ?? $defaultStatus,
+            'profile_image' => $profileImagePath ?? null,
+            'preferred_coin_id' => $input['preferred_coin_id'] ?? null,
         ]);
     }
 }

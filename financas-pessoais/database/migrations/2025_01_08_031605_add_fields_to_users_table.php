@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('type', ['admin', 'client', 'other'])->default('client');
-            $table->unsignedBigInteger('cep_id');
-            $table->string('address_number');
+            $table->enum('type', ['Admin', 'Cliente', 'Outro'])->default('Cliente');
+            $table->unsignedBigInteger('cep_id')->nullable();
+            $table->string('address_number')->nullable();
             $table->string('address_complement')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['Ativo', 'Inativo'])->default('Ativo');
             $table->string('profile_image')->nullable();
-            $table->unsignedBigInteger('preferred_coin_id');
+            $table->unsignedBigInteger('preferred_coin_id')->nullable();
 
             $table->foreign('cep_id')->references('id')->on('ceps')->onDelete('restrict');
             $table->foreign('preferred_coin_id')->references('id')->on('coins')->onDelete('restrict');

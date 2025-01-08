@@ -78,7 +78,7 @@
                             <span>{{ Auth::user()->name }}</span>
                         </button>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item bi bi-person-lines-fill" href="/#"> Editar Perfil</a>
+                            <a class="dropdown-item bi bi-person-lines-fill" href="/user/profile" > Editar Perfil</a>
                             <form method="POST" action="/logout">
                                     @csrf
                                     <button type="submit" class="dropdown-item bi bi-person-dash"> Logout</button>
