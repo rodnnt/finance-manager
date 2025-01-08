@@ -21,6 +21,8 @@
                         <ul class="dropdown-menu" aria-labelledby="cadastrosDropdown">
                             <li><a class="dropdown-item @if(Route::is('accounts.*')) active @endif" href="/accounts">Contas</a></li>
                             <li><a class="dropdown-item @if(Route::is('categories.*')) active @endif" href="/categories">Categorias</a></li>
+                            <li><a class="dropdown-item @if(Route::is('ceps.*')) active @endif" href="/coins">Moedas</a></li>
+                            <li><a class="dropdown-item @if(Route::is('ceps.*')) active @endif" href="/ceps">Ceps</a></li>
                         </ul>
                     </li>
 
