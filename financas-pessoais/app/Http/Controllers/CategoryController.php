@@ -35,12 +35,21 @@ class CategoryController extends Controller
     }
 
     public function destroy( $id ) {
-        Category::findOrFail( $id )->delete();
+        $category = Category::findOrFail( $id );
+        if (Auth::id() !== $category->created_by) {
+            return redirect('/categories')->withErrors('Você não tem permissão para excluir esta categoria.');
+        }
+        
+        $category->delete();
+        
         return redirect( '/categories' )->with( 'msg', 'Categoria excluida com sucesso');
     }
 
     public function edit( $id ) {
         $category = Category::findOrFail( $id );
+        if (Auth::id() !== $category->created_by) {
+            return redirect('/categories')->withErrors('Você não tem permissão para editar esta categoria.');
+        }
         return view( '/categories.edit', [ 'category' => $category] );
     }
 

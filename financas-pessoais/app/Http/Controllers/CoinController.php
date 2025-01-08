@@ -14,14 +14,13 @@ class CoinController extends Controller
     }
 
     public function create() {
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/coins')->withErrors('Somente administradores têm permissão para cadastrar moedas.');
+        }
         return view('coins.create');
     }
 
     public function store(Request $request) {
-        if (Auth::user()->type !== 'Admin') {
-            return redirect('/coins')->withErrors('Somente administradores têm permissão para cadastrar moedas.');
-        }
-
         $request->validate([
             'code' => ['required', 'unique:coins', 'regex:/^[A-Z]{3,5}$/'],
             'name' => 'required|string',
@@ -38,20 +37,25 @@ class CoinController extends Controller
     }
 
     public function destroy($id) {
-        Coin::findOrFail($id)->delete();
+        $coin = Coin::findOrFail( $id );
+        if (Auth::id() !== $coin->created_by) {
+            return redirect('/coins')->withErrors('Você não tem permissão para excluir esta moeda.');
+        }
+        
+        $coin->delete();
+        
         return redirect('/coins')->with('msg', 'Moeda excluída com sucesso');
     }
 
     public function edit($id) {
         $coin = Coin::findOrFail($id);
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/coins')->withErrors('Somente administradores têm permissão para editar moedas.');
+        }
         return view('coins.edit', ['coin' => $coin]);
     }
 
     public function update(Request $request, $id) {
-        if (Auth::user()->type !== 'Admin') {
-            return redirect('/coins')->withErrors('Somente administradores têm permissão para editar moedas.');
-        }
-
         $request->validate([
             'code' => ['required', 'regex:/^[A-Z]{3,5}$/'],
             'name' => 'required|string',
