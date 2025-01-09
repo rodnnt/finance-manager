@@ -23,6 +23,16 @@
             <input type="text" class="form-control" name="description" id="description" value='{{$category->description}}' 
                 placeholder="Informe a descrição da categoria" required>
         </div>
+        
+        @if (Auth::user()->type === 'Admin')
+        <div class="mb-3">
+            <label for="type" class="form-label fs-6 fs-md-5 fs-lg-4">Tipo:</label>
+            <select class="form-select" id="type" name="type" required>
+                <option value="Padrão" {{$category->type == 'Padrão' ? 'selected' : '' }}>Padrão</option>
+                <option value="Individual"{{$category->type == 'Individual' ? 'selected' : '' }}>Individual</option>
+            </select>
+        </div>
+        @endif
 
         <div class="form-group mb-3">
             <label for="created_at" class="form-label fs-6 fs-md-5 fs-lg-4">Data de Criação:</label>

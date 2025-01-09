@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function destroy( $id ) {
         $category = Category::findOrFail( $id );
-        if (Auth::id() !== $category->created_by) {
+        if (Auth::user()->type !== 'Admin' && Auth::id() !== $category->created_by) {
             return redirect('/categories')->withErrors('Você não tem permissão para excluir esta categoria.');
         }
         
@@ -47,7 +47,7 @@ class CategoryController extends Controller
 
     public function edit( $id ) {
         $category = Category::findOrFail( $id );
-        if (Auth::id() !== $category->created_by) {
+        if (Auth::user()->type !== 'Admin' && Auth::id() !== $category->created_by) {
             return redirect('/categories')->withErrors('Você não tem permissão para editar esta categoria.');
         }
         return view( '/categories.edit', [ 'category' => $category] );

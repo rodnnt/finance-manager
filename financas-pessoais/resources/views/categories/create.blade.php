@@ -32,6 +32,16 @@
                 placeholder="Informe a descrição da categoria" rows="4" required></textarea>
         </div>
 
+        @if (Auth::user()->type === 'Admin')
+        <div class="mb-3">
+            <label for="type" class="form-label fs-6 fs-md-5 fs-lg-4">Tipo:</label>
+            <select class="form-select" id="type" name="type" required>
+                <option value="Padrão" selected>Padrão</option>
+                <option value="Individual">Individual</option>
+            </select>
+        </div>
+        @endif
+
         <div class="form-group d-flex justify-content-between mt-4">
             <button type="submit" class="btn btn-primary">
                 <i class="bi bi-plus-circle-fill"></i>
