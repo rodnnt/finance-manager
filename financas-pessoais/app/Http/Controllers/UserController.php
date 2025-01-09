@@ -45,13 +45,13 @@ class UserController extends Controller
 
         $user = new User();
         $user->name = $request->name;
-        $user->email = $request->email;
+        $user->email = $validated['email'];
         $user->password = bcrypt($request->password);
-        $user->type = $request->type;
+        $user->type = $request->type ?? $defaultType;
         $user->cep_id = $request->cep_id;
         $user->address_number = $request->address_number;
         $user->address_complement = $request->address_complement;
-        $user->status = $request->status;
+        $user->status = $request->status ?? $defaultStatus;
         if ($request->hasFile('profile_image')) {
             $user->profile_image = $request->file('profile_image')->store('profile_images', 'public');
         }
@@ -59,7 +59,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect( '/users' )->with('msg', 'Usuário registrado com sucesso!'); //validar isso
+        return redirect( '/users' )->with('msg', 'Usuário registrado com sucesso!');
     }
 
     public function destroy($id)

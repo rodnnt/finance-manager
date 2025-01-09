@@ -79,6 +79,9 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item bi bi-person-lines-fill" href="/user/profile" > Editar Perfil</a>
+                            @if(Auth::user()->type === 'Admin')
+                                <a class="dropdown-item bi bi-person-up" href="/#"> Trocar Usuário</a>
+                            @endif
                             <form method="POST" action="/logout">
                                     @csrf
                                     <button type="submit" class="dropdown-item bi bi-person-dash"> Logout</button>
