@@ -19,6 +19,8 @@
 
         @csrf
 
+        <input type="hidden" name="created_by" value="{{ Auth::id() }}">
+
         <div class="mb-3">
             <label for="account_name" class="form-label fs-6 fs-md-5 fs-lg-4 fs-6 fs-md-5 fs-lg-4">Nome da Conta:</label>
             <input type="text" class="form-control" name="account_name"
