@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Transaction;
 use App\Models\Category;
 use App\Models\Account;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
     public function index() {
         $transactions = Transaction::join('categories', 'transactions.category_id', '=', 'categories.id')
             ->join('financial_accounts', 'transactions.account_id', '=', 'financial_accounts.id')
+            ->where('financial_accounts.created_by', Auth::id())
             ->select(
                 'transactions.*',
                 'categories.name as category_name',
@@ -24,8 +26,14 @@ class TransactionController extends Controller
     }
 
     public function create() {
-        $categories = Category::all();
-        $financial_accounts = Account::all();
+        $categories = Category::where(function($query) {
+            $query->where('type', 'Padrão')
+                  ->orWhere(function($query) {
+                      $query->where('type', 'Individual')
+                            ->where('created_by', Auth::id());
+                  });
+        })->get();
+        $financial_accounts = Account::where('created_by', Auth::id())->get();
         return view('transactions.create', compact('categories', 'financial_accounts'));       
     }
 
@@ -50,8 +58,14 @@ class TransactionController extends Controller
     }
 
     public function edit( $id ) {
-        $categories = Category::all();
-        $financial_accounts = Account::all();
+        $categories = Category::where(function($query) {
+            $query->where('type', 'Padrão')
+                  ->orWhere(function($query) {
+                      $query->where('type', 'Individual')
+                            ->where('created_by', Auth::id());
+                  });
+        })->get();
+        $financial_accounts = Account::where('created_by', Auth::id())->get();
         $transaction = Transaction::findOrFail( $id );
 
         return view( '/transactions.edit', [ 'transaction' => $transaction, 'categories' => $categories, 'financial_accounts' => $financial_accounts ] );
