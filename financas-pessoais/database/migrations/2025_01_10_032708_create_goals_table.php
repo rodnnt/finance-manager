@@ -19,11 +19,13 @@ return new class extends Migration
             $table->decimal('current_value', 15, 2)->nullable();
             $table->date('deadline');
             $table->unsignedBigInteger('account_id')->nullable();
+            $table->unsignedBigInteger('currency_id');
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
 
             $table->foreign('account_id')->references('id')->on('financial_accounts')->onDelete('cascade');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');          
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('currency_id')->references('id')->on('coins')->onDelete('restrict');
         });
     }
 
