@@ -2,7 +2,7 @@
     <ul class="nav flex-column">
         <!-- Home Link -->
         <li class="nav-item">
-            <a class="nav-link active" href="/home">
+            <a class="nav-link active" href="/">
                 <i class="bi bi-house-door"></i> Início
             </a>
         </li>
@@ -14,8 +14,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/dashboard">
-                <i class="bi bi-speedometer2"></i> Dashboard
+            <a class="nav-link" href="/goals">
+                <i class="bi bi-speedometer2"></i> Metas
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/accounts">
+                <i class="bi bi-piggy-bank"></i> Contas
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/categories">
+                <i class="bi bi-tags"></i> Categorias
             </a>
         </li>
 

@@ -3,7 +3,9 @@
         <div class="container-fluid">
             <!-- Logo da Aplicação talvez colocar imagem png aqui -->
             <a class="navbar-brand" href="/">Financial Manager</a>
-
+            
+            
+            
             <!-- Botão para Menu Responsivo -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -13,6 +15,8 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
                     
+                    <a class="navbar-home btn btn-secondary bi bi-house-door" href="/"></a>
+
                     <!-- Menu de Cadastros -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle @if(Route::is('accounts.*') || Route::is('categories.*')) active @endif" href="#" id="cadastrosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
