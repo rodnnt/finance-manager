@@ -19,24 +19,25 @@
 
                     <!-- Menu de Cadastros -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle @if(Route::is('accounts.*') || Route::is('categories.*')) active @endif" href="#" id="cadastrosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle @if(Route::is('accounts.*') || Route::is('categories.*') || Route::is('coins.*') || Route::is('ceps.*')) active @endif" href="#" id="cadastrosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Cadastros
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="cadastrosDropdown">
                             <li><a class="dropdown-item @if(Route::is('accounts.*')) active @endif" href="/accounts">Contas</a></li>
                             <li><a class="dropdown-item @if(Route::is('categories.*')) active @endif" href="/categories">Categorias</a></li>
-                            <li><a class="dropdown-item @if(Route::is('ceps.*')) active @endif" href="/coins">Moedas</a></li>
+                            <li><a class="dropdown-item @if(Route::is('coins.*')) active @endif" href="/coins">Moedas</a></li>
                             <li><a class="dropdown-item @if(Route::is('ceps.*')) active @endif" href="/ceps">CEP's</a></li>
                         </ul>
                     </li>
 
                     <!-- Menu de Programas -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle @if(Route::is('transactions.*')) active @endif" href="#" id="programasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle @if(Route::is('transactions.*') || Route::is('goals.*')) active @endif" href="#" id="programasDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Programas
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="programasDropdown">
                             <li><a class="dropdown-item @if(Route::is('transactions.*')) active @endif" href="/transactions">Transações</a></li>
+                            <li><a class="dropdown-item @if(Route::is('goals.*')) active @endif" href="/goals">Metas</a></li>
                         </ul>
                     </li>
 
