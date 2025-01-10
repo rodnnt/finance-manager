@@ -7,6 +7,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CepController;
 use App\Http\Controllers\CoinController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
 Route::get('/', function () {
@@ -64,6 +65,15 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 Route::get('/users/edit/{id}', [UserController::class, 'edit'])->middleware(['auth']);
 Route::put('/users/update/{id}', [UserController::class, 'update'])->middleware(['auth']);
 Route::get('register', [RegisteredUserController::class, 'create']) ->name('register');
+
+//Objetivos
+//Route::get('/', [GoalController::class, 'index']); (leva direto pra essa tela)
+Route::get( '/goals', [ GoalController::class, 'index' ] ) ->middleware('auth');
+Route::get( '/goals/create', [ GoalController::class, 'create' ] );
+Route::post('/goals', [GoalController::class, 'store' ]);
+Route::delete('/goals/{id}', [GoalController::class, 'destroy' ]);
+Route::get('/goals/edit/{id}', [GoalController::class, 'edit' ]);
+Route::put('/goals/update/{id}', [GoalController::class, 'update' ]);
 
 Route::middleware([
     'auth:sanctum',
