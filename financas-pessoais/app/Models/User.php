@@ -35,7 +35,7 @@ class User extends Authenticatable
         'address_complement',
         'status',
         'profile_image',
-        'preferred_coin_id',
+        'preferred_currency_id',
     ];
 
     /**
@@ -77,8 +77,8 @@ class User extends Authenticatable
         return $this->belongsTo(Cep::class);
     }
 
-    public function preferredCoin()
+    public function preferredCurrency()
     {
-        return $this->belongsTo(Coin::class, 'preferred_coin_id');
+        return $this->belongsTo(Currency::class, 'preferred_currency_id');
     }
 }

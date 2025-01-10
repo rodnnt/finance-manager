@@ -7,7 +7,7 @@
 <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
 
-        <a href='/coins' type="button" class="btn btn-outline-secondary">
+        <a href='/currencies' type="button" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left-square"></i>
         </a>
 
@@ -15,7 +15,7 @@
         
     </div>
 
-    <form action='/coins' method='post'>
+    <form action='/currencies' method='post'>
 
         @csrf
 

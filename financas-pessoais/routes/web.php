@@ -5,7 +5,7 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CepController;
-use App\Http\Controllers\CoinController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\Auth\RegisteredUserController;
@@ -49,13 +49,13 @@ Route::delete('/ceps/{id}', [CepController::class, 'destroy']);
 Route::get('/ceps/edit/{id}', [CepController::class, 'edit']);
 Route::put('/ceps/update/{id}', [CepController::class, 'update']);
 
-// Coins
-Route::get('/coins', [CoinController::class, 'index']); //->middleware('auth');
-Route::get('/coins/create', [CoinController::class, 'create']);
-Route::post('/coins', [CoinController::class, 'store']);
-Route::delete('/coins/{id}', [CoinController::class, 'destroy']);
-Route::get('/coins/edit/{id}', [CoinController::class, 'edit']);
-Route::put('/coins/update/{id}', [CoinController::class, 'update']);
+// currencies
+Route::get('/currencies', [CurrencyController::class, 'index']); //->middleware('auth');
+Route::get('/currencies/create', [CurrencyController::class, 'create']);
+Route::post('/currencies', [CurrencyController::class, 'store']);
+Route::delete('/currencies/{id}', [CurrencyController::class, 'destroy']);
+Route::get('/currencies/edit/{id}', [CurrencyController::class, 'edit']);
+Route::put('/currencies/update/{id}', [CurrencyController::class, 'update']);
 
 // Users
 Route::get('/users', [UserController::class, 'index']) ->middleware('auth');

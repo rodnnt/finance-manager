@@ -107,12 +107,12 @@
         </div>
 
         <div class="form-group mb-3">
-            <label for="preferred_coin_id" class="form-label fs-6 fs-md-5 fs-lg-4">Moeda Preferida:</label>
-            <select class="form-select" name="preferred_coin_id" id="preferred_coin_id">
+            <label for="preferred_currency_id" class="form-label fs-6 fs-md-5 fs-lg-4">Moeda Preferida:</label>
+            <select class="form-select" name="preferred_currency_id" id="preferred_currency_id">
                 <option value="">Não definida</option>
-                @foreach ($coins as $coin)
-                    <option value="{{ $coin->id }}" {{ old('preferred_coin_id', $user->preferred_coin_id) == $coin->id ? 'selected' : '' }}>
-                        {{ $coin->name }}
+                @foreach ($currencies as $currency)
+                    <option value="{{ $currency->id }}" {{ old('preferred_currency_id', $user->preferred_currency_id) == $currency->id ? 'selected' : '' }}>
+                        {{ $currency->name }}
                     </option>
                 @endforeach
             </select>

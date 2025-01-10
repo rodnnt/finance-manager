@@ -39,7 +39,7 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->cep->city ?? 'Não informado'}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->cep->state ?? 'Não informado'}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->cep->cep ?? 'Não informado'}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{$user->preferredCoin->name ?? 'Não definida'}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{$user->preferredCurrency->name  ?? 'Não informada'}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->status}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <a class="btn btn-primary" href="/users/edit/{{$user->id}}">

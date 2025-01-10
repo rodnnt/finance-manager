@@ -2,7 +2,7 @@
 
 @section('title', 'Moedas') 
 
-@section('floating-button-href', '/coins/create')
+@section('floating-button-href', '/currencies/create')
 
 @section('content') 
 
@@ -22,19 +22,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($coins as $coin)
+                @foreach($currencies as $currency)
                 <tr>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{$coin->code}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{$coin->name}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{$coin->symbol}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{$currency->code}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{$currency->name}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{$currency->symbol}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
-                        <a class="btn btn-primary" href="/coins/edit/{{$coin->id}}">
+                        <a class="btn btn-primary" href="/currencies/edit/{{$currency->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
 
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
-                        <form action="/coins/{{$coin->id}}" method="post">
+                        <form action="/currencies/{{$currency->id}}" method="post">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir a moeda?')" type="submit">

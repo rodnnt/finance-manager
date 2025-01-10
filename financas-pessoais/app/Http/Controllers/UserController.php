@@ -6,24 +6,25 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Models\Cep;
-use App\Models\Coin;
+use App\Models\Currency;
 
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        $currencies = Currency::all();
+        return view('users.index', compact('users', 'currencies'));
     }
 
     public function create()
     {
         $ceps = Cep::all();
-        $coins = Coin::all();
+        $currencies = Currency::all();
         $defaultType = 'Cliente';
         $defaultStatus = 'Ativo';
 
-        return view('/users/create', compact('ceps', 'coins', 'defaultType', 'defaultStatus'));
+        return view('/users/create', compact('ceps', 'currencies', 'defaultType', 'defaultStatus'));
     }
 
     public function store(Request $request)
@@ -39,7 +40,7 @@ class UserController extends Controller
             'address_number' => 'nullable|string',
             'status' => 'required|in:Ativo,Inativo',
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'preferred_coin_id' => 'nullable|exists:coins,id',
+            'preferred_currency_id' => 'nullable|exists:currencies,id',
             'type' => ['nullable', 'in:Admin,Cliente,Outro'],
         ]);
 
@@ -55,7 +56,7 @@ class UserController extends Controller
         if ($request->hasFile('profile_image')) {
             $user->profile_image = $request->file('profile_image')->store('profile_images', 'public');
         }
-        $user->preferred_coin_id = $request->preferred_coin_id;
+        $user->preferred_currency_id = $request->preferred_currency_id;
 
         $user->save();
 
@@ -73,8 +74,8 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $ceps = Cep::all();
-        $coins = Coin::all();
-        return view( '/users.edit', [ 'user' => $user, 'ceps' => $ceps, 'coins' => $coins ] );
+        $currencies = Currency::all();
+        return view( '/users.edit', [ 'user' => $user, 'ceps' => $ceps, 'currencies' => $currencies ] );
     }
 
     public function update(Request $request, $id)
@@ -88,7 +89,7 @@ class UserController extends Controller
             'address_number' => 'nullable|string',
             'status' => 'required|in:Ativo,Inativo',
             'profile_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'preferred_coin_id' => 'nullable|exists:coins,id',
+            'preferred_currency_id' => 'nullable|exists:currencies,id',
         ]);
 
         $user = User::findOrFail($id);
@@ -105,7 +106,7 @@ class UserController extends Controller
         if ($request->hasFile('profile_image')) {
             $user->profile_image = $request->file('profile_image')->store('profile_images', 'public');
         }
-        $user->preferred_coin_id = $request->preferred_coin_id;
+        $user->preferred_currency_id = $request->preferred_currency_id;
         
         $user->save();
 
