@@ -18,27 +18,19 @@
                 <i class="bi bi-speedometer2"></i> Dashboard
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/settings">
-                <i class="bi bi-gear"></i> Configurações
-            </a>
-        </li>
 
         <!-- Seção: Gestão -->
+        @auth
+        @if(Auth::user()->type === 'Admin')
         <li class="nav-item">
             <a class="nav-link" href="/users">
                 <i class="bi bi-people"></i> Usuários
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/products">
-                <i class="bi bi-box"></i> Produtos
-            </a>
-        </li>
+        @endif
         
-        @auth
         <!-- Linha Divisória -->
-        <hr class="my-2">
+        <hr>
 
         <!-- Logout -->
         <li class="nav-item">

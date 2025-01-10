@@ -7,17 +7,17 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    padding-top: 40px;
 }
 
 header {
-    position: fixed;  /* Fixar o header na tela */
-    top: 0;           /* Posicionar no topo */
-    left: 0;          /* Posicionar à esquerda */
-    width: 100%;      /* Garantir que ocupe toda a largura da tela */
-    z-index: 1000;    /* Certificar que o header fique acima de outros elementos */
-    background-color: #343a40;  /* Cor de fundo do header, conforme seu código */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Um sombreamento sutil */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #343a40;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 56px;
 }
 
 .content-fluid {
@@ -27,6 +27,7 @@ header {
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+    padding-top: 56px;
 }
 
 .row {
@@ -39,7 +40,7 @@ header {
     height: 100%;
     position: fixed;
     top: 0;
-    padding-top: 70px;
+    padding-top: 56px;
 }
 
 main {

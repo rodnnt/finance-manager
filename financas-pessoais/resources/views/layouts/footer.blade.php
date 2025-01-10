@@ -1,4 +1,4 @@
-<footer class="bg-secondary py-5">
+<footer class="bg-secondary py-4">
     <div class="container">
         <div class="row">
             <!-- Coluna 1: Sobre -->
