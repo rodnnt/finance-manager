@@ -38,7 +38,7 @@ class CurrencyController extends Controller
 
     public function destroy($id) {
         $currency = Currency::findOrFail($id);
-        if (Auth::id() !== $currency->created_by) {
+        if (Auth::user()->type !== 'Admin') {
             return redirect('/currencies')->withErrors('Você não tem permissão para excluir esta moeda.');
         }
         
