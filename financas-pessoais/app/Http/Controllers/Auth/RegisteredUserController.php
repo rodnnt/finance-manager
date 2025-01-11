@@ -7,18 +7,18 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Cep;
-use App\Models\Coin;
+use App\Models\Currency;
 
 class RegisteredUserController extends Controller
 {
     public function create()
     {
         $ceps = Cep::all();
-        $coins = Coin::all();
+        $currencies = Currency::all();
         $defaultType = 'Cliente';
         $defaultStatus = 'Ativo';
 
-        return view('auth.register', compact('ceps', 'coins', 'defaultType', 'defaultStatus'));
+        return view('auth.register', compact('ceps', 'currencies', 'defaultType', 'defaultStatus'));
     }
 
     public function store(Request $request)

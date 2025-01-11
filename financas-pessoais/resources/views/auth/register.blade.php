@@ -30,11 +30,11 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="preferred_coin_id" value="{{ __('Moeda Padrão') }}" />
-                <select id="preferred_coin_id" name="preferred_coin_id" class="block mt-1 w-full">
+                <x-label for="preferred_currency_id" value="{{ __('Moeda Padrão') }}" />
+                <select id="preferred_currency_id" name="preferred_currency_id" class="block mt-1 w-full">
                     <option value="" selected disabled>Selecione uma moeda padrão</option>
-                    @foreach($coins as $coin)
-                        <option value="{{ $coin->id }}" {{ old('preferred_coin_id') == $coin->id ? 'selected' : '' }}>{{ $coin->name }}</option>
+                    @foreach($currencies as $currency)
+                        <option value="{{ $currency->id }}" {{ old('preferred_currency_id') == $currency->id ? 'selected' : '' }}>{{ $currency->name }}</option>
                     @endforeach
                 </select>
             </div>
