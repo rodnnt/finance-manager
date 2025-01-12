@@ -26,7 +26,7 @@ class UserController extends Controller
         if (Auth::user()->type !== 'Admin') {
             return redirect('/users')->withErrors('Somente administradores têm permissão para cadastrar usuários.');
         } else {
-            $ceps = Cep::all();
+            $ceps = Cep::orderBy('cep', 'asc')->get();
             $currencies = Currency::all();
             $defaultType = 'Cliente';
             $defaultStatus = 'Ativo';
@@ -85,7 +85,7 @@ class UserController extends Controller
             return redirect('/users')->withErrors('Somente administradores têm permissão para editar usuários.');
         } else {
             $user = User::findOrFail($id);
-            $ceps = Cep::all();
+            $ceps = Cep::orderBy('cep', 'asc')->get();
             $currencies = Currency::all();
             return view('/users.edit', ['user' => $user, 'ceps' => $ceps, 'currencies' => $currencies]);
         }

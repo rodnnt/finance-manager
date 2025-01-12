@@ -69,7 +69,7 @@
                 <option value="" selected disabled>Selecione o CEP de seu endereço</option>
                 @foreach ($ceps as $cep)
                     <option value="{{ $cep->id }}" {{ old('cep_id', $user->cep_id) == $cep->id ? 'selected' : '' }}>
-                        {{ $cep->cep }}
+                        {{ $cep->cep }} - {{ $cep->street }}
                     </option>
                 @endforeach
             </select>

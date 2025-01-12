@@ -63,7 +63,7 @@
             <select class="form-select" name="cep_id" id="cep_id">
                 <option value="" selected disabled>Selecione o CEP de seu endereço</option>
                 @foreach ($ceps as $cep)
-                    <option value="{{ $cep->id }}">{{ $cep->cep }}</option>
+                    <option value="{{ $cep->id }}">{{ $cep->cep }} - {{ $cep->street }} - {{ $cep->city }}, {{ $cep->state }}</option>
                 @endforeach
             </select>
         </div>
