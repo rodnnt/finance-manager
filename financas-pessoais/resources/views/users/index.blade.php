@@ -1,8 +1,10 @@
 @extends('layouts.main') 
 
-@section('title', 'Usuários') 
+@section('title', 'Usuários')
 
+@if(Auth::user()->type === 'Admin')
 @section('floating-button-href', '/users/create')
+@endif
 
 @section('content') 
 
@@ -12,19 +14,24 @@
     </div>
 
     <div class="table-responsive">
+        @if($users->isEmpty())
+        <p class="text-center text-muted">Nenhum usuários cadastrado.</p>
+        @else
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th class="fs-6 fs-md-5 fs-lg-4">Nome</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Email</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Tipo</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4">Status</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Endereço</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Cidade</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Estado</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">CEP</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Moeda Preferida</th>
-                    <th class="fs-6 fs-md-5 fs-lg-4">Status</th>
+                    @if(Auth::user()->type === 'Admin')
                     <th class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 100px;" colspan="2">Ações</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +40,7 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->email}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->type}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{$user->status}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">
                         {{$user->cep->street ?? 'Não informado'}}, {{$user->address_number ?? 'S/N'}}
                     </td>
@@ -40,7 +48,7 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->cep->state ?? 'Não informado'}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->cep->cep ?? 'Não informado'}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$user->preferredCurrency->name  ?? 'Não informada'}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{$user->status}}</td>
+                    @if(Auth::user()->type === 'Admin')
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <a class="btn btn-primary" href="/users/edit/{{$user->id}}">
                             <i class="bi bi-pencil-square"></i>
@@ -55,10 +63,12 @@
                             </button>
                         </form>
                     </td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </div>
 @endsection

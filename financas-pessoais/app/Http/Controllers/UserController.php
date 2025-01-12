@@ -7,28 +7,35 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cep;
 use App\Models\Currency;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::all();
-        $currencies = Currency::all();
-        return view('users.index', compact('users', 'currencies'));
+    public function index() {
+        if (Auth::user()->type !== 'Admin') {
+            $users = User::where('id', Auth::id())->get();
+       
+            return view('users.index', compact('users'));
+        } else {
+            $users = User::all();
+            return view('users.index', compact('users'));
+        }
     }
 
-    public function create()
-    {
-        $ceps = Cep::all();
-        $currencies = Currency::all();
-        $defaultType = 'Cliente';
-        $defaultStatus = 'Ativo';
-
-        return view('/users/create', compact('ceps', 'currencies', 'defaultType', 'defaultStatus'));
+    public function create() {
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/users')->withErrors('Somente administradores têm permissão para cadastrar usuários.');
+        } else {
+            $ceps = Cep::all();
+            $currencies = Currency::all();
+            $defaultType = 'Cliente';
+            $defaultStatus = 'Ativo';
+            
+            return view('/users/create', compact('ceps', 'currencies', 'defaultType', 'defaultStatus'));
+        }  
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $defaultType = 'Cliente';
         $defaultStatus = 'Ativo';
 
@@ -63,19 +70,25 @@ class UserController extends Controller
         return redirect( '/users' )->with('msg', 'Usuário registrado com sucesso!');
     }
 
-    public function destroy($id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-        return redirect( '/users' )->with('msg', 'Usuário excluído com sucesso!');
+    public function destroy($id) {
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/users')->withErrors('Você não tem permissão para excluir este usuário.');
+        } else {
+            $user = User::findOrFail($id);
+            $user->delete();
+            return redirect('/users')->with('msg', 'Usuário excluído com sucesso!');
+        }
     }
 
-    public function edit($id)
-    {
-        $user = User::findOrFail($id);
-        $ceps = Cep::all();
-        $currencies = Currency::all();
-        return view( '/users.edit', [ 'user' => $user, 'ceps' => $ceps, 'currencies' => $currencies ] );
+    public function edit($id) {
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/users')->withErrors('Somente administradores têm permissão para editar usuários.');
+        } else {
+            $user = User::findOrFail($id);
+            $ceps = Cep::all();
+            $currencies = Currency::all();
+            return view('/users.edit', ['user' => $user, 'ceps' => $ceps, 'currencies' => $currencies]);
+        }
     }
 
     public function update(Request $request, $id)

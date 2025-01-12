@@ -2,7 +2,11 @@
 
 @section('title', 'Moedas') 
 
+@auth
+@if(Auth::user()->type === 'Admin')
 @section('floating-button-href', '/currencies/create')
+@endif
+@endauth
 
 @section('content') 
 
@@ -12,13 +16,20 @@
     </div>
 
     <div class="table-responsive">
+        @if($currencies->isEmpty())
+        <p class="text-center text-muted">Nenhuma moeda cadastrada.</p>
+        @else
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th class="fs-6 fs-md-5 fs-lg-4">Código</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Nome</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Símbolo</th>
+                    @auth
+                    @if(Auth::user()->type === 'Admin')
                     <th class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 100px;" colspan="2">Ações</th>
+                    @endif
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -27,12 +38,13 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$currency->code}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$currency->name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{$currency->symbol}}</td>
+                    @auth
+                    @if(Auth::user()->type === 'Admin')
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <a class="btn btn-primary" href="/currencies/edit/{{$currency->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
-
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <form action="/currencies/{{$currency->id}}" method="post">
                             @csrf
@@ -42,10 +54,13 @@
                             </button>
                         </form>
                     </td>
+                    @endif
+                    @endauth
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </div>
 @endsection

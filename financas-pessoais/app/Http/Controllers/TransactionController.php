@@ -12,14 +12,10 @@ use Illuminate\Support\Facades\Auth;
 class TransactionController extends Controller
 {
     public function index() {
-        $transactions = Transaction::join('categories', 'transactions.category_id', '=', 'categories.id')
-            ->join('financial_accounts', 'transactions.account_id', '=', 'financial_accounts.id')
-            ->where('financial_accounts.created_by', Auth::id())
-            ->select(
-                'transactions.*',
-                'categories.name as category_name',
-                'financial_accounts.account_name as account_name'
-            )
+        $transactions = Transaction::with('currency', 'financial_accounts', 'category')
+            ->whereHas('financial_accounts', function ($query) {
+                $query->where('created_by', Auth::id());
+            })
             ->get();
     
         return view('transactions.index', compact('transactions'));
@@ -53,22 +49,30 @@ class TransactionController extends Controller
     }
 
     public function destroy( $id ) {
-        Transaction::findOrFail( $id )->delete();
-        return redirect( '/transactions' )->with( 'msg', 'Transação excluida com sucesso');
+        $transaction = Transaction::findOrFail( $id );
+        if (Auth::id() !== $transaction->financial_accounts->created_by) {
+            return redirect('/transactions')->withErrors('Você não tem permissão para excluir esta transação.');
+        } else {
+            $transaction->delete();
+            return redirect( '/transactions' )->with( 'msg', 'Transação excluida com sucesso');
+        }
     }
 
     public function edit( $id ) {
         $categories = Category::where(function($query) {
-            $query->where('type', 'Padrão')
-                  ->orWhere(function($query) {
-                      $query->where('type', 'Individual')
-                            ->where('created_by', Auth::id());
-                  });
-        })->get();
+            $query->where('type', 'Padrão');
+            if (Auth::check()) {
+                $query->orWhere('created_by', Auth::id());
+            }
+        })
+        ->get();
         $financial_accounts = Account::where('created_by', Auth::id())->get();
         $transaction = Transaction::findOrFail( $id );
-
-        return view( '/transactions.edit', [ 'transaction' => $transaction, 'categories' => $categories, 'financial_accounts' => $financial_accounts ] );
+        if (Auth::id() !== $transaction->financial_accounts->created_by) {
+            return redirect('/transactions')->withErrors('Você não tem permissão para editar esta transação.');
+        } else {
+            return view( '/transactions.edit', [ 'transaction' => $transaction, 'categories' => $categories, 'financial_accounts' => $financial_accounts ] );
+        }
     }
 
     public function update( Request $request ) {

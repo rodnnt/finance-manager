@@ -16,8 +16,9 @@ class CurrencyController extends Controller
     public function create() {
         if (Auth::user()->type !== 'Admin') {
             return redirect('/currencies')->withErrors('Somente administradores têm permissão para cadastrar moedas.');
+        } else {
+            return view('currencies.create');
         }
-        return view('currencies.create');
     }
 
     public function store(Request $request) {
@@ -37,22 +38,31 @@ class CurrencyController extends Controller
     }
 
     public function destroy($id) {
-        $currency = Currency::findOrFail($id);
         if (Auth::user()->type !== 'Admin') {
             return redirect('/currencies')->withErrors('Você não tem permissão para excluir esta moeda.');
         }
-        
-        $currency->delete();
-        
-        return redirect('/currencies')->with('msg', 'Moeda excluída com sucesso');
+    
+        try {
+            $currency = Currency::findOrFail($id);
+            $currency->delete();
+    
+            return redirect('/currencies')->with('msg', 'Moeda excluída com sucesso.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() === '23000') {
+                return redirect('/currencies')->withErrors('Não é possível excluir esta moeda porque ela está em uso em uma ou mais contas.');
+            }
+            
+            throw $e;
+        }
     }
 
     public function edit($id) {
-        $currency = Currency::findOrFail($id);
         if (Auth::user()->type !== 'Admin') {
             return redirect('/currencies')->withErrors('Somente administradores têm permissão para editar moedas.');
+        } else {
+            $currency = Currency::findOrFail($id);
+            return view('currencies.edit', ['currency' => $currency]);
         }
-        return view('currencies.edit', ['currency' => $currency]);
     }
 
     public function update(Request $request, $id) {

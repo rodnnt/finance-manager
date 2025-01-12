@@ -11,12 +11,7 @@ use Illuminate\Validation\Rule;
 class AccountController extends Controller
 {
     public function index() {
-        $financial_accounts = Account::where(function($query) {
-            $query->whereNull('created_by')
-                  ->orWhere('created_by', Auth::id());
-        })
-        ->get();
-        
+        $financial_accounts = Account::where('created_by', Auth::id())->get();
         return view('accounts.index', compact('financial_accounts'));
     }
 
@@ -68,13 +63,22 @@ class AccountController extends Controller
     }
 
     public function destroy( $id ) {
-        Account::findOrFail($id)->delete();
-        return redirect('/accounts')->with('msg', 'Conta excluída com sucesso');
+        $financial_accounts = Account::findOrFail($id);
+        if (Auth::id() !== $financial_accounts->created_by) {
+            return redirect('/categories')->withErrors('Você não tem permissão para excluir esta conta.');
+        } else {
+            $financial_accounts->delete();
+            return redirect('/accounts')->with('msg', 'Conta excluída com sucesso');
+        }
     }
 
     public function edit( $id ) {
         $financial_accounts = Account::findOrFail($id);
-        return view('accounts.edit', ['account' => $financial_accounts]);
+        if (Auth::id() !== $financial_accounts->created_by) {
+            return redirect('/accounts')->withErrors('Você não tem permissão para editar esta conta.');
+        } else {
+            return view('accounts.edit', ['account' => $financial_accounts]);
+        }
     }
 
     public function update( Request $request ) {

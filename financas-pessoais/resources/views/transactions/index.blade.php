@@ -2,7 +2,9 @@
 
 @section('title', 'Transações')
 
+@auth
 @section('floating-button-href', '/transactions/create')
+@endauth
 
 @section('content')
 
@@ -12,6 +14,9 @@
     </div>
 
     <div class="table-responsive">
+        @if($transactions->isEmpty())
+        <p class="text-center text-muted">Nenhuma transação cadastrada.</p>
+        @else
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -31,9 +36,9 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->transaction_date->format('d/m/Y') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->name }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->type }}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->category_name}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->category->name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">R$ {{ number_format($transaction->value, 2, ',', '.') }}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->account_name}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->financial_accounts->account_name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->description}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <a class="btn btn-primary" href="/transactions/edit/{{$transaction->id}}">
@@ -53,6 +58,7 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </div>
 @endsection

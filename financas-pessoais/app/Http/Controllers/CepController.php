@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cep;
+use Illuminate\Support\Facades\Auth;
 
 class CepController extends Controller
 {
@@ -13,7 +14,11 @@ class CepController extends Controller
     }
 
     public function create() {
-        return view('ceps.create');
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/ceps')->withErrors('Somente administradores têm permissão para cadastrar ceps.');
+        } else {
+            return view('ceps.create');
+        }
     }
 
     public function store(Request $request) {
@@ -37,13 +42,21 @@ class CepController extends Controller
     }
 
     public function destroy($id) {
-        Cep::findOrFail($id)->delete();
-        return redirect('/ceps')->with('msg', 'CEP excluído com sucesso');
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/ceps')->withErrors('Você não tem permissão para excluir este CEP.');
+        } else {
+            Cep::findOrFail($id)->delete();
+            return redirect('/ceps')->with('msg', 'CEP excluído com sucesso');
+        }
     }
 
     public function edit($id) {
-        $cep = Cep::findOrFail($id);
-        return view('ceps.edit', ['cep' => $cep]);
+        if (Auth::user()->type !== 'Admin') {
+            return redirect('/ceps')->withErrors('Somente administradores têm permissão para editar ceps.');
+        } else {
+            $cep = Cep::findOrFail($id);
+            return view('ceps.edit', ['cep' => $cep]);
+        }
     }
 
     public function update(Request $request) {

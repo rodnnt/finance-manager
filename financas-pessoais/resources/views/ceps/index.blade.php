@@ -2,7 +2,11 @@
 
 @section('title', 'CEPs') 
 
+@auth
+@if(Auth::user()->type === 'Admin')
 @section('floating-button-href', '/ceps/create')
+@endif
+@endauth
 
 @section('content') 
 
@@ -13,6 +17,9 @@
     </div>
 
     <div class="table-responsive">
+        @if($ceps->isEmpty())
+        <p class="text-center text-muted">Nenhum CEP cadastrado.</p>
+        @else
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -21,7 +28,11 @@
                     <th class="fs-6 fs-md-5 fs-lg-4">Bairro</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Cidade</th>
                     <th class="fs-6 fs-md-5 fs-lg-4">Estado</th>
+                    @auth
+                    @if(Auth::user()->type === 'Admin')
                     <th class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 100px;" colspan="2">Ações</th>
+                    @endif
+                    @endauth
                 </tr>
             </thead>
             <tbody>
@@ -32,12 +43,13 @@
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$cep->neighborhood}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$cep->city}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$cep->state}}</td>
+                    @auth
+                    @if(Auth::user()->type === 'Admin')
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <a class="btn btn-primary" href="/ceps/edit/{{$cep->id}}">
                             <i class="bi bi-pencil-square"></i>
                         </a> 
                     </td>
-
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <form action="/ceps/{{$cep->id}}" method="post">
                             @csrf
@@ -47,10 +59,13 @@
                             </button>
                         </form>
                     </td>
+                    @endif
+                    @endauth
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </div>
 @endsection

@@ -2,7 +2,9 @@
 
 @section('title', 'Contas') 
 
+@auth
 @section('floating-button-href', '/accounts/create')
+@endif
 
 @section('content') 
 
@@ -12,6 +14,9 @@
     </div>
 
     <div class="table-responsive">
+        @if($financial_accounts->isEmpty())
+        <p class="text-center text-muted">Nenhuma conta cadastrada.</p>
+        @else
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -32,7 +37,7 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->agency_code }}-{{ $account->agency_digit }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_number }}-{{ $account->account_digit }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_type}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">R$ {{ number_format($account->initial_balance, 2, ',', '.') }}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->preferred_currency_id }} {{ number_format($account->initial_balance, 2, ',', '.') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <a class="btn btn-primary" href="/accounts/edit/{{$account->id}}">
                             <i class="bi bi-pencil-square"></i>
@@ -51,6 +56,7 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </div>
 @endsection

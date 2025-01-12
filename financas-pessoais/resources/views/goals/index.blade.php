@@ -2,7 +2,9 @@
 
 @section('title', 'Objetivos Financeiros') 
 
+@auth
 @section('floating-button-href', '/goals/create')
+@endauth
 
 @section('content') 
 
@@ -13,6 +15,9 @@
     </div>
 
     <div class="table-responsive">
+        @if($goals->isEmpty())
+        <p class="text-center text-muted">Nenhum objetivo cadastrado.</p>
+        @else
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -30,10 +35,10 @@
                 <tr>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->description}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->target_value}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->currency->symbol}} {{ number_format($goal->target_value, 2, ',', '.') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->current_value ?? 'Não informado'}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->deadline}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->account_name}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->account->account_name}}</td>
 
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <a class="btn btn-primary" href="/goals/edit/{{$goal->id}}">
@@ -54,6 +59,7 @@
                 @endforeach
             </tbody>
         </table>
+        @endif
     </div>
 </div>
 @endsection

@@ -41,6 +41,7 @@
             @enderror
         </div>
 
+        @if(Auth::user()->type === 'Admin')
         <div class="form-group mb-3">
             <label for="type" class="form-label fs-6 fs-md-5 fs-lg-4">Tipo:</label>
             <select class="form-select @error('type') is-invalid @enderror" name="type" id="type" required>
@@ -52,6 +53,15 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+
+        <div class="form-group mb-3">
+            <label for="status" class="form-label fs-6 fs-md-5 fs-lg-4">Status:</label>
+            <select class="form-select" name="status" id="status" required>
+                <option value="Ativo" {{ old('status', $user->status) == 'Ativo' ? 'selected' : '' }}>Ativo</option>
+                <option value="Inativo" {{ old('status', $user->status) == 'Inativo' ? 'selected' : '' }}>Inativo</option>
+            </select>
+        </div>
+        @endif
 
         <div class="form-group mb-3">
             <label for="cep_id" class="form-label fs-6 fs-md-5 fs-lg-4">CEP:</label>
@@ -96,14 +106,6 @@
             <label for="state" class="form-label fs-6 fs-md-5 fs-lg-4">Estado:</label>
             <input type="text" class="form-control" id="state"
                 value="{{ old('state', optional($user->cep)->state) }}" disabled>
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="status" class="form-label fs-6 fs-md-5 fs-lg-4">Status:</label>
-            <select class="form-select" name="status" id="status" required>
-                <option value="Ativo" {{ old('status', $user->status) == 'Ativo' ? 'selected' : '' }}>Ativo</option>
-                <option value="Inativo" {{ old('status', $user->status) == 'Inativo' ? 'selected' : '' }}>Inativo</option>
-            </select>
         </div>
 
         <div class="form-group mb-3">
