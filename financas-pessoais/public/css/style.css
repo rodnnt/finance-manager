@@ -2,6 +2,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    flex-direction: column;
 }
 
 body {
@@ -23,37 +24,50 @@ header {
 .content-fluid {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    margin-right: auto;
-    margin-left: auto;
     padding-top: 56px;
+    max-width: 100%;
+    background-color: #f60e0e;
+    position: relative;
 }
 
 .row {
     flex: 1;
     display: flex;
     align-items: stretch;
+    margin: 0;
+    max-width: 100%;
 }
 
-.sidebar-menu {
-    height: 100%;
+.sidebar {
     position: fixed;
-    top: 0;
-    padding-top: 60px;
+    top: 56px;
+    bottom: 0px;
+    height: auto;
+    overflow-y: auto;
+    padding-left: 0;
+    padding-top: 5px;
+    width: 150px;
+    z-index: 1;
 }
 
 main {
     background-color: #cecbcb;
-    min-height: 300px;
+    margin-left: 150px;
+    flex: 1;
+    padding: 16px;
+    z-index: 0;
+    max-width: 100%;
 }
 
 footer {
+    width: 100%;
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 20px 0;
-    margin-top: auto;
+    z-index: 2;
+    padding: 10px 20px;
 }
 
 .navbar-nav {
@@ -85,8 +99,18 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 700px) {
     .btn-floating {
         padding: 12px 18px;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        display: none;
+    }
+    main {
+        margin-left: 0;
+        width: 100%;
     }
 }

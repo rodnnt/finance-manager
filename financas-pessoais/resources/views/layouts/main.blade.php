@@ -18,23 +18,19 @@
 
         <div class="content-fluid">
             <div class="row">
-                <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar py-4 d-none d-md-block">
-                    <div class="position-sticky">
-                        @include('layouts.sidebar')
-                    </div>
+                <nav class="sidebar bg-light d-md-block d-none">
+                    
+                    @include('layouts.sidebar')
+                    
                 </nav>
 
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 fs-5 fs-sm-4 fs-md-3 fs-lg-2">
+                <main class="px-md-4 fs-5 fs-sm-4 fs-md-3 fs-lg-2">
                     <div class="content py-4">
                         @include('layouts.message')
                         @yield('content')
                     </div>
 
-                    @if (view()->hasSection('floating-button-href'))
-                        <a href="@yield('floating-button-href')" type="button" class="btn btn-primary btn-floating fs-6 fs-md-5 fs-lg-4">
-                            <i class="bi bi-plus-circle"></i>
-                        </a>
-                    @endif
+                    
                 </main>
             </div>
         </div>

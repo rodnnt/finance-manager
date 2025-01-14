@@ -1,7 +1,6 @@
 <footer class="bg-secondary py-4">
     <div class="container">
         <div class="row">
-            <!-- Coluna 1: Sobre -->
             <div class="col-md-4">
                 <h5 class="fw-bold mb-3 text-white">Gestão Financeira</h5>
                 <p class="small text-white">
@@ -9,7 +8,6 @@
                 </p>
             </div>
 
-            <!-- Coluna 2: Links Rápidos -->
             <div class="col-md-4">
                 <h5 class="fw-bold mb-3 text-white">Links Rápidos</h5>
                 <ul class="list-unstyled small">
@@ -20,7 +18,6 @@
                 </ul>
             </div>
 
-            <!-- Coluna 3: Contato -->
             <div class="col-md-4">
                 <h5 class="fw-bold mb-3 text-white">Contato</h5>
                 <p class="small mb-1 text-white">
@@ -33,8 +30,16 @@
                     <i class="fas fa-map-marker-alt me-2"></i> Rua Financeira, 123 - Caçador, SC
                 </p>
             </div>
+
+            <div>
+                @if (view()->hasSection('floating-button-href'))
+                    <a href="@yield('floating-button-href')" type="button" class="btn btn-primary btn-floating fs-6 fs-md-5 fs-lg-4">
+                        <i class="bi bi-plus-circle"></i>
+                    </a>
+                @endif
+            </div>
         </div>
-        <!-- Linha de Copyright -->
+
         <div class="text-center mt-4 border-top pt-3 small text-white">
             &copy; <script>
                 document.write(new Date().getFullYear());
