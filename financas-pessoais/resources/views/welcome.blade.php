@@ -12,6 +12,22 @@
         @guest
         <h1 class="fs-4 fs-md-3 fs-lg-2">Demonstração</h1>
         @endguest
+
+        <div class="form-group mb-4">
+            <form action="/" method="POST">
+                @csrf
+                <label for="currency_id" class="form-label fs-6 fs-md-5 fs-lg-4">Moeda:</label>
+                <select class="form-select" name="currency_id" id="currency_id" onchange="this.form.submit()">
+                    @foreach ($currencies as $currency)
+                        <option value="{{ $currency->id }}" 
+                            {{ $currency->id !== 10 ? '' : '' }} 
+                            {{ $currency->id == $selectedCurrency->id ? 'selected' : '' }}>
+                            {{ $currency->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </form>
+        </div>
     </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
@@ -21,7 +37,15 @@
                     <div class="row">
                         <div class="col-9">
                             <h5 class="card-title fs-6 fs-md-5 fs-lg-4">Receitas</h5>
-                            <p class="card-text fs-4 fs-md-3 fs-lg-2">+ R$ 12.515,84</p>
+                            <p class="card-text fs-4 fs-md-3 fs-lg-2">
+                                + {{ $selectedCurrency->symbol }} 
+                                @auth
+                                {{ number_format($receitas, 2, '.', ',') }}
+                                @endauth
+                                @guest
+                                12.515,84
+                                @endguest    
+                            </p>
                         </div>
                         <div class="col-3 d-flex justify-content-center align-items-center">
                             <i class="bi bi-box-arrow-in-down fs-1"></i>
@@ -38,11 +62,12 @@
                         <div class="col-9">
                             <h5 class="card-title fs-6 fs-md-5 fs-lg-4">Despesas</h5>
                             <p class="card-text fs-4 fs-md-3 fs-lg-2">
+                                - {{ $selectedCurrency->symbol }} 
                                 @auth
-                                - {{ number_format($despesas, 2, '.', ',') }}
+                                {{ number_format($despesas, 2, '.', ',') }}
                                 @endauth
                                 @guest
-                                - R$ 3.251,44
+                                3.251,44
                                 @endguest
                             </p>
                         </div>
@@ -60,7 +85,14 @@
                     <div class="row">
                         <div class="col-9">
                             <h5 class="card-title fs-6 fs-md-5 fs-lg-4">Saldo</h5>
-                            <p class="card-text fs-4 fs-md-3 fs-lg-2">+ R$ 9.264,51</p>
+                            <p class="card-text fs-4 fs-md-3 fs-lg-2">
+                                {{ $selectedCurrency->symbol }} 
+                                @auth
+                                {{ number_format($saldo , 2, '.', ',') }}
+                                @endauth
+                                @guest
+                                9.264,51
+                                @endguest</p>
                         </div>
                         <div class="col-3 d-flex justify-content-center align-items-center">
                             <i class="bi bi-wallet fs-1"></i>
