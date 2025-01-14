@@ -37,7 +37,7 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->agency_code }}-{{ $account->agency_digit }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_number }}-{{ $account->account_digit }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->account_type}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->preferred_currency_id }} {{ number_format($account->initial_balance, 2, ',', '.') }}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $account->currency->symbol }} {{ number_format($account->initial_balance, 2, ',', '.') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <a class="btn btn-primary" href="/accounts/edit/{{$account->id}}">
                             <i class="bi bi-pencil-square"></i>

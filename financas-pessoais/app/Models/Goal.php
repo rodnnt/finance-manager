@@ -10,7 +10,7 @@ class Goal extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function account()
+    public function financial_accounts()
     {
         return $this->belongsTo(Account::class, 'account_id');
     }

@@ -36,10 +36,10 @@
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->transaction_date->format('d/m/Y') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->name }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->type }}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->category->name}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">R$ {{ number_format($transaction->value, 2, ',', '.') }}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->financial_accounts->account_name}}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->description}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->category->name }}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->currency->symbol }} {{ number_format($transaction->value, 2, ',', '.') }}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->financial_accounts->account_name }}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4">{{ $transaction->description }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4" style="width: 50px;">
                         <a class="btn btn-primary" href="/transactions/edit/{{$transaction->id}}">
                             <i class="bi bi-pencil-square"></i>

@@ -65,6 +65,15 @@
             </select>
         </div>
 
+        <div class="form-group mb-3">
+            <label for="currency_id" class="form-label fs-6 fs-md-5 fs-lg-4">Moeda Preferida:</label>
+            <select class="form-select" name="currency_id" id="currency_id" required>
+                @foreach ($currencies as $currency)
+                    <option value="{{$account->currency_id}}" selected {{ $currency->id !== 10 ? 'disabled' : '' }}>{{ $currency->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="mb-3">
             <label for="initial_balance" class="form-label fs-6 fs-md-5 fs-lg-4">Saldo Inicial:</label>
             <input type="number" step="0.01" class="form-control" name="initial_balance"

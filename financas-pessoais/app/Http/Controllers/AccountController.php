@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use App\Models\Currency;
 
 class AccountController extends Controller
 {
@@ -16,7 +17,9 @@ class AccountController extends Controller
     }
 
     public function create() {
-        return view('accounts.create');
+        $currencies = Currency::all();
+        $user = Auth::user();
+        return view('accounts.create', compact('currencies', 'user'));
     }
 
     public function store(Request $request) {
@@ -74,10 +77,11 @@ class AccountController extends Controller
 
     public function edit( $id ) {
         $financial_accounts = Account::findOrFail($id);
+        $currencies = Currency::all();
         if (Auth::id() !== $financial_accounts->created_by) {
             return redirect('/accounts')->withErrors('Você não tem permissão para editar esta conta.');
         } else {
-            return view('accounts.edit', ['account' => $financial_accounts]);
+            return view('accounts.edit', ['account' => $financial_accounts, 'currencies' => $currencies]);
         }
     }
 

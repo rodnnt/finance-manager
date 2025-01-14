@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class GoalController extends Controller
 {
     public function index() {
-        $goals = Goal::with('currency', 'account')
+        $goals = Goal::with('currency', 'financial_accounts')
             ->where('goals.created_by', Auth::id())
             ->get();
         
@@ -24,7 +24,7 @@ class GoalController extends Controller
     }
 
     public function store(Request $request) {
-        $account = Account::findOrFail($request->account_id);
+        $financial_accounts = Account::findOrFail($request->account_id);
         
         $goal = new Goal();
         $goal->created_by = Auth::id();
@@ -33,7 +33,7 @@ class GoalController extends Controller
         $goal->target_value = $request->target_value;
         $goal->deadline = $request->deadline;
         $goal->account_id = $request->account_id;
-        $goal->currency_id = $account->currency_id;      
+        $goal->currency_id = $financial_accounts->currency_id;      
 
         $goal->save();
 

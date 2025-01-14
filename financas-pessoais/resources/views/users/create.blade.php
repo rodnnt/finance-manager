@@ -85,7 +85,8 @@
             <select class="form-select" name="preferred_currency_id" id="preferred_currency_id">
                 <option value="" selected>Nenhuma</option>
                 @foreach ($currencies as $currency)
-                    <option value="{{ $currency->id }}">{{ $currency->name }}</option>
+                    <option value="{{ $currency->id }}"
+                        {{ $currency->id !== 10 ? 'disabled' : '' }}>{{ $currency->name }}</option>
                 @endforeach
             </select>
         </div>

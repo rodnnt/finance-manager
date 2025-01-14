@@ -113,7 +113,9 @@
             <select class="form-select" name="preferred_currency_id" id="preferred_currency_id">
                 <option value="">Não definida</option>
                 @foreach ($currencies as $currency)
-                    <option value="{{ $currency->id }}" {{ old('preferred_currency_id', $user->preferred_currency_id) == $currency->id ? 'selected' : '' }}>
+                    <option value="{{ $currency->id }}"
+                        {{ old('preferred_currency_id', $user->preferred_currency_id) == $currency->id ? 'selected' : '' }}
+                        {{ $currency->id !== 10 ? 'disabled' : '' }}>
                         {{ $currency->name }}
                     </option>
                 @endforeach

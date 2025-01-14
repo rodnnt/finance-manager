@@ -34,6 +34,8 @@ class TransactionController extends Controller
     }
 
     public function store(Request $request) {
+        $financial_accounts = Account::findOrFail($request->account_id);
+        
         $transaction = new Transaction();
         $transaction->transaction_date = $request->transaction_date;
         $transaction->name = $request->name;
@@ -42,6 +44,7 @@ class TransactionController extends Controller
         $transaction->value = $request->value;
         $transaction->account_id = $request->account_id;
         $transaction->description = $request->description;
+        $transaction->currency_id = $financial_accounts->currency_id;
 
         $transaction->save();
 
