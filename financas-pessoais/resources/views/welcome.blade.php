@@ -40,7 +40,7 @@
                             <p class="card-text fs-4 fs-md-3 fs-lg-2">
                                 + {{ $selectedCurrency->symbol }} 
                                 @auth
-                                {{ number_format($receitas, 2, '.', ',') }}
+                                {{ number_format($receitas, 2, ',', '.') }}
                                 @endauth
                                 @guest
                                 12.515,84
@@ -64,7 +64,7 @@
                             <p class="card-text fs-4 fs-md-3 fs-lg-2">
                                 - {{ $selectedCurrency->symbol }} 
                                 @auth
-                                {{ number_format($despesas, 2, '.', ',') }}
+                                {{ number_format($despesas, 2, ',', '.') }}
                                 @endauth
                                 @guest
                                 3.251,44
@@ -84,11 +84,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-9">
-                            <h5 class="card-title fs-6 fs-md-5 fs-lg-4">Saldo</h5>
+                            <h5 class="card-title fs-6 fs-md-5 fs-lg-4">Saldo Atual</h5>
                             <p class="card-text fs-4 fs-md-3 fs-lg-2">
                                 {{ $selectedCurrency->symbol }} 
                                 @auth
-                                {{ number_format($saldo , 2, '.', ',') }}
+                                {{ number_format($saldo , 2, ',', '.') }}
                                 @endauth
                                 @guest
                                 9.264,51
