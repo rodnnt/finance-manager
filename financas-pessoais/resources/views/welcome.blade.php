@@ -37,7 +37,14 @@
                     <div class="row">
                         <div class="col-9">
                             <h5 class="card-title fs-6 fs-md-5 fs-lg-4">Despesas</h5>
-                            <p class="card-text fs-4 fs-md-3 fs-lg-2">- R$ 3.251,44</p>
+                            <p class="card-text fs-4 fs-md-3 fs-lg-2">
+                                @auth
+                                - {{ number_format($despesas, 2, '.', ',') }}
+                                @endauth
+                                @guest
+                                - R$ 3.251,44
+                                @endguest
+                            </p>
                         </div>
                         <div class="col-3 d-flex justify-content-center align-items-center">
                             <i class="bi bi-box-arrow-up fs-1"></i>

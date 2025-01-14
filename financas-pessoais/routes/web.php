@@ -8,11 +8,14 @@ use App\Http\Controllers\CepController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 
+// Página Inicial (Welcome)
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/', [WelcomeController::class, 'index']);
 
 //Transações
 //Route::get('/', [TransactionController::class, 'index']); (leva direto pra essa tela)
