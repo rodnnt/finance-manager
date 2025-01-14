@@ -119,6 +119,7 @@ class AccountController extends Controller
                 'account_type' => $request->account_type,
                 'initial_balance' => $request->initial_balance,
                 'credit_limit' => $request->account_type == 'Cartão de Crédito' ? $request->credit_limit : null,
+                'currency_id' => $request->currency_id,
             ]);
     
             return redirect('/accounts')->with('msg', 'Conta atualizada com sucesso!');

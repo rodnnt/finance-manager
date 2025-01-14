@@ -65,11 +65,15 @@
             </select>
         </div>
 
-        <div class="form-group mb-3">
+        <div class="mb-3">
             <label for="currency_id" class="form-label fs-6 fs-md-5 fs-lg-4">Moeda Preferida:</label>
             <select class="form-select" name="currency_id" id="currency_id" required>
                 @foreach ($currencies as $currency)
-                    <option value="{{$account->currency_id}}" selected {{ $currency->id !== 10 ? 'disabled' : '' }}>{{ $currency->name }}</option>
+                    <option value="{{ $currency->id }}" 
+                        {{ $currency->id == $account->currency_id ? 'selected' : '' }}
+                        {{ $currency->id !== 10 ? 'disabled' : '' }}>
+                        {{ $currency->name }}
+                    </option>
                 @endforeach
             </select>
         </div>
