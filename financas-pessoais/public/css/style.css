@@ -99,13 +99,13 @@ footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-@media (min-width: 700px) {
+@media (min-width: 750px) {
     .btn-floating {
         padding: 12px 18px;
     }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 750px) {
     .sidebar {
         display: none;
     }
