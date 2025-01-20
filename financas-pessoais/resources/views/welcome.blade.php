@@ -6,12 +6,15 @@
 
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        @auth
-        <h1 class="fs-4 fs-md-3 fs-lg-2 mb-0">Página Inicial Autenticado</h1>
-        @endauth
-        @guest
-        <h1 class="fs-4 fs-md-3 fs-lg-2 mb-0">Demonstração</h1>
-        @endguest
+        <h1 class="fs-4 fs-md-3 fs-lg-2 mb-0">
+            @auth
+                Página Inicial Autenticado
+            @endauth
+
+            @guest
+                Demonstração
+            @endguest
+        </h1>
 
         <div class="form-group">
             <form action="/" method="POST">
@@ -40,10 +43,11 @@
                             <p class="fs-4 fs-md-3 fs-lg-2 mb-0">
                                 + {{ $selectedCurrency->symbol }} 
                                 @auth
-                                {{ number_format($receitas, 2, ',', '.') }}
+                                    {{ number_format($receitas, 2, ',', '.') }}
                                 @endauth
+
                                 @guest
-                                12.515,84
+                                    12.515,84
                                 @endguest    
                             </p>
                         </div>
@@ -62,10 +66,11 @@
                             <p class="fs-4 fs-md-3 fs-lg-2 mb-0">
                                 - {{ $selectedCurrency->symbol }} 
                                 @auth
-                                {{ number_format($despesas, 2, ',', '.') }}
+                                    {{ number_format($despesas, 2, ',', '.') }}
                                 @endauth
+
                                 @guest
-                                3.251,44
+                                    3.251,44
                                 @endguest
                             </p>
                         </div>
@@ -84,10 +89,11 @@
                             <p class="fs-4 fs-md-3 fs-lg-2 mb-0">
                                 {{ $selectedCurrency->symbol }} 
                                 @auth
-                                {{ number_format($saldo , 2, ',', '.') }}
+                                    {{ number_format($saldo , 2, ',', '.') }}
                                 @endauth
+
                                 @guest
-                                9.264,51
+                                    9.264,51
                                 @endguest</p>
                         </div>
                         <div class="col-3 d-flex justify-content-center">
@@ -111,11 +117,27 @@
 
                 <div class="col-6 col-sm-8">
                     <div class="progress mt-1">
-                        <div class="progress-bar bg-success" style="width: 79.44%;">
-                            79,44%
+                        <div class="progress-bar bg-success"
+                            @auth
+                                style="width: {{ ($receitas * 100) / ($receitas + $despesas) }}%;">
+                                {{ number_format(($receitas*100) / ($receitas+$despesas), 2, ',', '.') }}%
+                            @endauth
+
+                            @guest
+                                style="width: 79.44%;">
+                                79,44%
+                            @endguest    
                         </div>
-                        <div class="progress-bar bg-danger" style="width: 20.56%;">
-                            20,56%
+                        <div class="progress-bar bg-danger"
+                            @auth
+                                style="width: {{ ($despesas * 100) / ($receitas + $despesas) }}%;">
+                                {{ number_format(($despesas * 100) / ($receitas + $despesas), 2, ',', '.') }}%
+                            @endauth
+    
+                            @guest
+                                style="width: 20.56%;">
+                                20,56%
+                            @endguest
                         </div>
                     </div>
                 </div>
