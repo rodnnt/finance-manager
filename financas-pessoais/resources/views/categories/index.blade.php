@@ -25,6 +25,7 @@
                     <th class="fs-6 fs-md-5 fs-lg-4">Descrição</th>
                     @auth
                     <th class="fs-6 fs-md-5 fs-lg-4">Tipo</th>
+                    <th class="fs-6 fs-md-5 fs-lg-4">Orçamento</th>
                     <th class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 100px;" colspan="2">Ações</th>
                     @endauth
                 </tr>
@@ -36,6 +37,7 @@
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->description}}</td>
                     @auth
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->type}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$category->budget}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4 text-center" style="width: 50px;">
                         <a class="btn btn-primary" href="/categories/edit/{{$category->id}}">
                             <i class="bi bi-pencil-square"></i>

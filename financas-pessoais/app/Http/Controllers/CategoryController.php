@@ -30,6 +30,7 @@ class CategoryController extends Controller
         $category->description = $request->description;
         $category->created_by = $request->created_by;
         $category->type = $request->type ?? 'Individual';
+        $category->budget = $request->budget ?? 0.01;
         
         $category->save();
 

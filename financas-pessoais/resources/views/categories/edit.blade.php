@@ -34,6 +34,13 @@
         </div>
         @endif
 
+        <div class="mb-3">
+            <label for="budget" class="form-label fs-6 fs-md-5 fs-lg-4">Orçamento:</label>
+            <input type="number" step="0.01" class="form-control" name="budget"
+                id="budget" value="{{$category->budget}}"
+                placeholder="Informe o orçamento planejado para esta categoria" required>
+        </div>
+
         <div class="form-group mb-3">
             <label for="created_at" class="form-label fs-6 fs-md-5 fs-lg-4">Data de Criação:</label>
             <input type="text" class="form-control" name="created_at" id="created_at" value='{{$category->created_at}}' disabled>

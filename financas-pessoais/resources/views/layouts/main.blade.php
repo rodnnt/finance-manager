@@ -25,7 +25,7 @@
                 </nav>
 
                 <main class="px-md-4 fs-5 fs-sm-4 fs-md-3 fs-lg-2">
-                    <div class="content py-4">
+                    <div class="content">
                         @include('layouts.message')
                         @yield('content')
                     </div>
