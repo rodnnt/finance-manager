@@ -46,7 +46,7 @@ class WelcomeController extends Controller
             ->sum('initial_balance')
         ;
 
-        $currentBalance = $sumBalance + $totalExpenses + $totalIncome;
+        $currentBalance = $sumBalance - $totalExpenses + $totalIncome;
 
         $sortBy = $request->get('sortBy', 'percentageTotal');
         $categories = Category::getCategoriesWithTotals($sortBy, $selectedCurrencyId);
