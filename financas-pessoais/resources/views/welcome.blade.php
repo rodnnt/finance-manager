@@ -263,7 +263,7 @@
                                 </div>
 
                                 <div class="text-end">
-                                    <small class="text-muted">Planejado: R$ 1.500,00</small> budget
+                                    <small class="text-muted">Planejado: R$ 1.500,00</small>
                                     <span class="badge rounded-pill bg-danger">120%</span>
                                 </div>
                             </div>
