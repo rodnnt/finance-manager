@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserBudget;
 
 class Category extends Model
 {
@@ -16,6 +17,11 @@ class Category extends Model
         return $this->hasMany(Transaction::class);
     }
 
+    public function budgets()
+    {
+        return $this->hasMany(UserBudget::class);
+    }
+
     public function getValueAttribute()
     {
         $totalExpenses = $this->transactions()->where('type', 'Despesa')->sum('value');
@@ -24,16 +30,17 @@ class Category extends Model
         return abs($totalExpenses - $totalIncome);
     }
 
-    public static function getCategoriesWithTotals($sortBy = 'balance', $currencyId)
+    public static function getCategoriesWithTotals($sortBy = 'percentageTotal', $currencyId)
     {
-        $transactions = Transaction::with('currency', 'financial_accounts', 'category')
-        ->whereHas('financial_accounts', function ($query) {
-            $query->where('created_by', Auth::id());
-        })
-        ->when($currencyId, function ($query, $currencyId) {
-            $query->where('currency_id', $currencyId);
-        })
-        ->get();
+        $transactions = 
+            Transaction::with('currency', 'financial_accounts', 'category')
+                ->whereHas('financial_accounts', function ($query) {
+                    $query->where('created_by', Auth::id());
+                })
+                ->when($currencyId, function ($query, $currencyId) {
+                    $query->where('currency_id', $currencyId);
+                })
+                ->get();
 
         return $transactions
             ->groupBy('category_id')
@@ -43,10 +50,21 @@ class Category extends Model
                 $totalIncome = $transactions->where('type', 'Receita')->sum('value');
                 $totalExpenses = $transactions->where('type', 'Despesa')->sum('value');
                 $balance = abs($totalIncome - $totalExpenses);
-                $budget = $category->budget;
-                $percentage = $budget > 0 ? ($balance / $budget) * 100 : 0;
-                $percentageExcess = ($balance > $budget) ? (($balance - $budget) / $budget) * 100 : 0;
-                $percentageTotal = abs($percentage + $percentageExcess);
+                $budget = UserBudget::where('user_id', Auth::id())
+                                    ->where('category_id', $category->id)
+                                    ->first()->budget ?? 0;
+                if ($budget == 0) {
+                    $budget = $category->budget;
+                }
+                if ($budget == 0.01) {
+                    $percentage = 100;
+                    $percentageExcess = 0;
+                    $percentageTotal = 100;
+                } else {
+                    $percentage = $budget > 0.01 ? ($balance / $budget) * 100 : 0;
+                    $percentageExcess = ($balance > $budget) ? (($balance - $budget) / $budget) * 100 : 0;
+                    $percentageTotal = $percentage + $percentageExcess;
+                }
 
 
                 return [

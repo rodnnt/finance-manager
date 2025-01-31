@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
+use App\Models\UserBudget;
 
 class CategoryController extends Controller
 {
@@ -17,7 +18,15 @@ class CategoryController extends Controller
             }
         })
         ->get();
-        return view('categories.index', compact('categories'));
+
+        $categoriesWithBudget = $categories->map(function($category) {
+            $category->budget = UserBudget::where('user_id', Auth::id())
+                                          ->where('category_id', $category->id)
+                                          ->first()->budget ?? null;
+            return $category;
+        });
+
+        return view('categories.index', compact('categories', 'categoriesWithBudget'));
     }
 
     public function create() {
@@ -25,14 +34,19 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request) {
-        $category = new Category();
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->created_by = $request->created_by;
-        $category->type = $request->type ?? 'Individual';
-        $category->budget = $request->budget ?? 0.01;
-        
-        $category->save();
+        $budget = $request->has('budget') && !empty($request->budget) ? $request->budget : 0.01;
+        $category = Category::firstOrCreate([
+            'name' => $request->name
+        ], [
+            'description' => $request->description,
+            'created_by' => $request->created_by,
+            'type' => $request->type ?? 'Individual',
+            'budget' => $budget
+        ]);
+
+        if ($request->has('budget')) {
+            UserBudget::createOrUpdateBudget(Auth::id(), $category->id, $request->budget);
+        }
 
         return redirect( '/categories' )->with( 'msg', 'Categoria criada com sucesso!' );
     }
@@ -50,15 +64,27 @@ class CategoryController extends Controller
 
     public function edit( $id ) {
         $category = Category::findOrFail( $id );
+        
         if (Auth::user()->type !== 'Admin' && Auth::id() !== $category->created_by) {
-            return redirect('/categories')->withErrors('Você não tem permissão para editar esta categoria.');
+            $isUserAllowedToEdit = true;
         } else {
-            return view( '/categories.edit', [ 'category' => $category] );
+            $isUserAllowedToEdit = false;
         }
+
+        $budget = UserBudget::where('user_id', Auth::id())
+                            ->where('category_id', $category->id)
+                            ->first();
+
+        return view( '/categories.edit', [ 'category' => $category, 'budget' => $budget ? $budget->budget : null, 'isUserAllowedToEdit' => $isUserAllowedToEdit] );
     }
 
     public function update( Request $request ) {
-        Category::findOrFail( $request->id )->update( $request->all() );
+        $category = Category::findOrFail($request->id);
+        $category->update($request->except('budget'));
+
+        if ($request->has('budget')) {
+            UserBudget::createOrUpdateBudget(Auth::id(), $category->id, $request->budget);
+        }
 
         return redirect( '/categories' )->with( 'msg', 'Categoria editada com sucesso');
     }
