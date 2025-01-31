@@ -81,4 +81,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Currency::class, 'preferred_currency_id');
     }
+
+    public function budgets()
+    {
+        return $this->hasMany(UserBudget::class);
+    }
+
 }

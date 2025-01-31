@@ -170,7 +170,7 @@
             
             @auth
                 @if($categories->isEmpty())
-                    <p class="text-center text-muted">Nenhuma conta cadastrada.</p>
+                    <p class="text-center text-muted">Nenhuma transação registrada.</p>
                 @else
                     <div class="row row-cols-1 row-cols-md-3 g-4 overflow-auto d-flex" style="flex-wrap: nowrap; overflow-x: auto;">
                         @foreach($categories as $category)
@@ -178,13 +178,21 @@
                                 <div class="card h-100">
                                     @php
                                         $balance = $category['balance'];
-                                        $budget = $category['budget'];
+                                        $userBudget = $userBudgets->get($category['id']);
+                                        $budget = $userBudget ? $userBudget->budget : $category['budget'];
                                         $badgeClass = '';
-                                        $percentage = $budget > 0 ? ($balance / $budget) * 100 : 0;
-                                        $percentageExcess = ($balance > $budget) ? (($balance - $budget) / $budget) * 100 : 0;
-                                        $percentageTotal = $percentage + $percentageExcess;
+                                        if ($budget == 0.01) {
+                                            $percentage = 100;
+                                            $percentageExcess = 0;
+                                            $percentageTotal = 100;
+                                        } else {
+                                            $percentage = $budget > 0.01 ? ($balance / $budget) * 100 : 0;
+                                            $percentageExcess = ($balance > $budget) ? (($balance - $budget) / $budget) * 100 : 0;
+                                            $percentageTotal = $percentage + $percentageExcess;
+                                        }
+                                        $percentageTotal = ($percentageTotal == 100) ? 99.99 : $percentageTotal;
 
-                                        if ($balance > $budget) {
+                                        if ($balance > $budget && $budget != 0.01) {
                                             $badgeClass = 'bg-danger';
                                         } elseif ($balance == $budget) {
                                             $badgeClass = 'bg-success';
@@ -220,7 +228,7 @@
 
                                     <div class="card-footer fs-6 fs-md-5 fs-lg-4">
                                         <div class="progress mt-1">
-                                            @if ($percentage < 100)
+                                            @if ($percentage < 100 || $budget == 0.01)
                                                 <div class="progress-bar bg-primary" style="width: {{ min($percentage, 100) }}%"></div>
                                             @else
                                                 <div class="progress-bar bg-success" style="width: {{ min($percentage, 100) }}%"></div>

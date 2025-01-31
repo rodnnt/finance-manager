@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Currency;
+use App\Models\UserBudget;
 
 class WelcomeController extends Controller
 {
@@ -50,7 +51,10 @@ class WelcomeController extends Controller
 
         $sortBy = $request->get('sortBy', 'percentageTotal');
         $categories = Category::getCategoriesWithTotals($sortBy, $selectedCurrencyId);
-        
-        return view('welcome', compact('currencies', 'selectedCurrency', 'totalExpenses', 'totalIncome', 'currentBalance', 'categories', 'sortBy'));
+        $userBudgets = UserBudget::where('user_id', Auth::id())
+                                ->get()
+                                ->keyBy('category_id');
+       
+        return view('welcome', compact('currencies', 'selectedCurrency', 'totalExpenses', 'totalIncome', 'currentBalance', 'categories', 'sortBy', 'userBudgets'));
     }
 }
