@@ -332,88 +332,171 @@
                 <h5 class="fs-6 fs-md-5 fs-lg-4">Objetivos</h5>
             </div>
 
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_birthday.svg" class="card-img-top"/>
-                        <div class="card-body">
-                            <h5 class="card-title d-flex justify-content-between fs-6 fs-md-5 fs-lg-4">Festa de 15 da Sophia
-                                <span class="badge rounded-pill bg-success">R$ 10.000,00</span>
-                            </h5>
-                            <p class="card-text text-end fs-6 fs-md-5 fs-lg-4">Atingido</p>
+            @auth
+                @if($goals->isEmpty())
+                    <p class="text-center text-muted">Nenhum objetivo encontrado.</p>
+                @else
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        @foreach($goals as $goal)
+                            <div class="col">
+                                <div class="card h-100">
+                                    @php
+                                        $progress = ($goal->target_value > 0) 
+                                            ? ($goal->current_value / $goal->target_value) * 100 
+                                            : 0;
+                                        $progress = min($progress, 100);
+
+                                        if ($progress >= 100) {
+                                            $badgeClass = 'bg-success';
+                                        } elseif ($progress >= 80) {
+                                            $badgeClass = 'bg-primary';
+                                        } elseif ($progress == 0) {
+                                            $badgeClass = 'bg-danger';
+                                        } else {
+                                            $badgeClass = 'bg-warning text-dark';
+                                        }
+
+                                        $today = \Carbon\Carbon::today();
+                                        $deadline = \Carbon\Carbon::parse($goal->deadline);
+                                        $daysToDeadline = $today->diffInDays($deadline, false);
+
+                                        if ($progress >= 100) {
+                                            $dateClass = 'bg-success';
+                                        } elseif ($progress >= 80) {
+                                            $dateClass = 'bg-primary';
+                                        } elseif ($daysToDeadline < 0) {
+                                            $dateClass = 'bg-danger';
+                                        } elseif ($daysToDeadline <= 30) {
+                                            $dateClass = 'bg-warning text-dark';
+                                        } else {
+                                            $dateClass = 'bg-primary';
+                                        }
+
+                                        switch($goal->name) {
+                                            default:
+                                                $imgSrc = 'https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_bills.svg';
+                                                break;
+                                        }
+                                    @endphp
+
+                                    <img src="{{ $imgSrc }}" class="card-img-top" />
+                                    <div class="card-body">
+                                        <h5 class="card-title d-flex justify-content-between fs-6 fs-md-5 fs-lg-4">
+                                            {{ $goal->name }}
+                                            <span class="badge rounded-pill {{ $badgeClass }}">
+                                                {{ $selectedCurrency->symbol }} {{ number_format($goal->current_value, 2, ',', '.') }}
+                                            </span>
+                                        </h5>
+                                        <p class="card-text text-end fs-6 fs-md-5 fs-lg-4">
+                                            {{ $goal->description }}
+                                        </p>
+                                    </div>
+
+                                    <div class="card-footer fs-6 fs-md-5 fs-lg-4">
+                                        <div class="progress mt-1">
+                                            <div class="progress-bar {{ $badgeClass }}" style="width: {{ $progress }}%;"></div>
+                                        </div>
+
+                                        <div class="text-end">
+                                            <span class="badge rounded-pill {{ $badgeClass }}">{{ number_format($progress, 0) }}%</span>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between">
+                                            <small class="text-muted">Meta: {{ $selectedCurrency->symbol }} {{ number_format($goal->target_value, 2, ',', '.') }}</small> 
+                                            <span class="badge rounded-pill {{ $dateClass }}">{{ date('d/m/Y', strtotime($goal->deadline)) }}</span>              
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+            @endauth
+
+            @guest
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_birthday.svg" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title d-flex justify-content-between fs-6 fs-md-5 fs-lg-4">Festa de 15 da Sophia
+                                    <span class="badge rounded-pill bg-success">R$ 10.000,00</span>
+                                </h5>
+                                <p class="card-text text-end fs-6 fs-md-5 fs-lg-4">Atingido</p>
+                            </div>
+
+                            <div class="card-footer fs-6 fs-md-5 fs-lg-4">
+                                <div class="progress mt-1">
+                                    <div class="progress-bar bg-success" style="width: 100%;"></div>
+                                </div>
+
+                                <div class="text-end">
+                                    <span class="badge rounded-pill bg-success">100%</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">Meta: R$ 10.000,00</small> 
+                                    <span class="badge rounded-pill bg-success">30/12/2024</span>              
+                                </div>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="card-footer fs-6 fs-md-5 fs-lg-4">
-                            <div class="progress mt-1">
-                                <div class="progress-bar bg-success" style="width: 100%;"></div>
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_interview.svg" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title d-flex justify-content-between fs-6 fs-md-5 fs-lg-4">Novo Carro
+                                    <span class="badge rounded-pill bg-secondary">R$ 40.000,00</span>
+                                </h5>
+                                <p class="card-text text-end fs-6 fs-md-5 fs-lg-4">Valor mensal a ser guardado: R$ 1.470,59</p>
                             </div>
 
-                            <div class="text-end">
-                                <span class="badge rounded-pill bg-success">100%</span>
+                            <div class="card-footer fs-6 fs-md-5 fs-lg-4">
+                                <div class="progress mt-1">
+                                    <div class="progress-bar bg-primary" style="width: 80%;"></div>
+                                </div>
+
+                                <div class="text-end">
+                                    <span class="badge rounded-pill bg-primary">80%</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">Meta: R$ 50.000,00</small>
+                                    <span class="badge rounded-pill bg-primary">15/06/2026</span>              
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_shopping.svg" class="card-img-top"/>
+                            <div class="card-body">
+                                <h5 class="card-title d-flex justify-content-between fs-6 fs-md-5 fs-lg-4">Reforma da Casa
+                                    <span class="badge rounded-pill bg-warning text-dark">R$ 7.500,00</span>
+                                </h5>
+                                <p class="card-text text-end fs-6 fs-md-5 fs-lg-4">Valor mensal a ser guardado: R$ 1.090,91</p>
                             </div>
 
-                            <div class="d-flex justify-content-between">
-                                <small class="text-muted">Meta: R$ 10.000,00</small> 
-                                <span class="badge rounded-pill bg-success">30/12/2024</span>              
+                            <div class="card-footer fs-6 fs-md-5 fs-lg-4">
+                                <div class="progress mt-1">
+                                    <div class="progress-bar bg-warning" style="width: 37.5%;"></div>
+                                </div>
+
+                                <div class="text-end">
+                                    <span class="badge rounded-pill bg-warning text-dark">37,5%</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between">
+                                    <small class="text-muted">Meta: R$ 20.000,00</small>
+                                    <span class="badge rounded-pill bg-danger">01/03/2025</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_interview.svg" class="card-img-top"/>
-                        <div class="card-body">
-                            <h5 class="card-title d-flex justify-content-between fs-6 fs-md-5 fs-lg-4">Novo Carro
-                                <span class="badge rounded-pill bg-secondary">R$ 40.000,00</span>
-                            </h5>
-                            <p class="card-text text-end fs-6 fs-md-5 fs-lg-4">Valor mensal a ser guardado: R$ 1.470,59</p>
-                        </div>
-
-                        <div class="card-footer fs-6 fs-md-5 fs-lg-4">
-                            <div class="progress mt-1">
-                                <div class="progress-bar bg-primary" style="width: 80%;"></div>
-                            </div>
-
-                            <div class="text-end">
-                                <span class="badge rounded-pill bg-primary">80%</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between">
-                                <small class="text-muted">Meta: R$ 50.000,00</small>
-                                <span class="badge rounded-pill bg-primary">15/06/2026</span>              
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card h-100">
-                        <img src="https://ssl.gstatic.com/calendar/images/eventillustrations/2024_v2/img_shopping.svg" class="card-img-top"/>
-                        <div class="card-body">
-                            <h5 class="card-title d-flex justify-content-between fs-6 fs-md-5 fs-lg-4">Reforma da Casa
-                                <span class="badge rounded-pill bg-warning text-dark">R$ 7.500,00</span>
-                            </h5>
-                            <p class="card-text text-end fs-6 fs-md-5 fs-lg-4">Valor mensal a ser guardado: R$ 1.090,91</p>
-                        </div>
-
-                        <div class="card-footer fs-6 fs-md-5 fs-lg-4">
-                            <div class="progress mt-1">
-                                <div class="progress-bar bg-warning" style="width: 37.5%;"></div>
-                            </div>
-
-                            <div class="text-end">
-                                <span class="badge rounded-pill bg-warning text-dark">37,5%</span>
-                            </div>
-
-                            <div class="d-flex justify-content-between">
-                                <small class="text-muted">Meta: R$ 20.000,00</small>
-                                <span class="badge rounded-pill bg-danger">01/03/2025</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endguest
         </div>
     </div>
 </div>

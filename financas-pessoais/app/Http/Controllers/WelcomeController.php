@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account;
 use App\Models\Category;
+use App\Models\Goal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
@@ -54,7 +55,12 @@ class WelcomeController extends Controller
         $userBudgets = UserBudget::where('user_id', Auth::id())
                                 ->get()
                                 ->keyBy('category_id');
+
+        $goals = Goal::where('created_by', Auth::id())
+                        ->where('currency_id', $selectedCurrencyId)
+                        ->orderBy('deadline', 'asc')
+                        ->get();
        
-        return view('welcome', compact('currencies', 'selectedCurrency', 'totalExpenses', 'totalIncome', 'currentBalance', 'categories', 'sortBy', 'userBudgets'));
+        return view('welcome', compact('currencies', 'selectedCurrency', 'totalExpenses', 'totalIncome', 'currentBalance', 'categories', 'sortBy', 'userBudgets', 'goals'));
     }
 }
