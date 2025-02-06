@@ -15,24 +15,31 @@
         <div class="form-group mb-3">
             <label for="name" class="form-label fs-6 fs-md-5 fs-lg-4">Nome da Categoria:</label>
             <input type="text" class="form-control" name="name" id="name" value='{{$category->name}}' 
-                placeholder="Informe o nome da categoria" required>
+                placeholder="Informe o nome da categoria" @if($isUserAllowedToEdit) disabled @endif required>
         </div>
 
         <div class="form-group mb-3">
             <label for="description" class="form-label fs-6 fs-md-5 fs-lg-4">Descrição da Categoria:</label>
             <input type="text" class="form-control" name="description" id="description" value='{{$category->description}}' 
-                placeholder="Informe a descrição da categoria" required>
+                placeholder="Informe a descrição da categoria" @if($isUserAllowedToEdit) disabled @endif required>
         </div>
         
         @if (Auth::user()->type === 'Admin')
         <div class="mb-3">
             <label for="type" class="form-label fs-6 fs-md-5 fs-lg-4">Tipo:</label>
-            <select class="form-select" id="type" name="type" required>
+            <select class="form-select" id="type" name="type" @if($isUserAllowedToEdit) disabled @endif required>
                 <option value="Padrão" {{$category->type == 'Padrão' ? 'selected' : '' }}>Padrão</option>
                 <option value="Individual"{{$category->type == 'Individual' ? 'selected' : '' }}>Individual</option>
             </select>
         </div>
         @endif
+
+        <div class="mb-3">
+            <label for="budget" class="form-label fs-6 fs-md-5 fs-lg-4">Orçamento:</label>
+            <input type="number" step="0.01" class="form-control" name="budget" 
+                   id="budget" value="{{ old('budget', $budget) }}" 
+                   placeholder="Informe o orçamento planejado para esta categoria" @if(!$isUserAllowedToEdit) required @endif>
+        </div>
 
         <div class="form-group mb-3">
             <label for="created_at" class="form-label fs-6 fs-md-5 fs-lg-4">Data de Criação:</label>
