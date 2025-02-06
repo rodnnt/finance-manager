@@ -36,7 +36,7 @@
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->name}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->description}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->currency->symbol}} {{ number_format($goal->target_value, 2, ',', '.') }}</td>
-                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->current_value ?? 'Não informado'}}</td>
+                    <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->currency->symbol}} {{ number_format($goal->current_value,2, ',', '.') }}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->deadline}}</td>
                     <td class="fs-6 fs-md-5 fs-lg-4"> {{$goal->financial_accounts->account_name}}</td>
 
