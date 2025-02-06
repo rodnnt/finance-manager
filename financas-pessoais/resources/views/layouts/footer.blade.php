@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h5 class="fw-bold mb-3 text-white">Gestão Financeira</h5>
+                <h5 class="fw-bold mb-3 text-white">Finance Manager</h5>
                 <p class="small text-white">
                     Uma aplicação simples e eficiente para gerenciar suas finanças pessoais e empresariais. Controle suas despesas, receitas e organize seu futuro financeiro.
                 </p>
@@ -43,7 +43,7 @@
         <div class="text-center mt-4 border-top pt-3 small text-white">
             &copy; <script>
                 document.write(new Date().getFullYear());
-            </script> Gestão Financeira. Todos os direitos reservados.
+            </script> Finance Manager. Todos os direitos reservados.
         </div>
     </div>
 </footer>
