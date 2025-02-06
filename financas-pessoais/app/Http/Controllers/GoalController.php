@@ -31,6 +31,7 @@ class GoalController extends Controller
         $goal->name = $request->name;
         $goal->description = $request->description;
         $goal->target_value = $request->target_value;
+        $goal->current_value = $request->current_value;
         $goal->deadline = $request->deadline;
         $goal->account_id = $request->account_id;
         $goal->currency_id = $financial_accounts->currency_id;      
@@ -66,6 +67,7 @@ class GoalController extends Controller
         $goal->name = $request->name;
         $goal->description = $request->description;
         $goal->target_value = $request->target_value;
+        $goal->current_value = $request->current_value;
         $goal->deadline = $request->deadline;
         $goal->account_id = $request->account_id;
 
