@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Transaction;
 use App\Models\Currency;
 use App\Models\UserBudget;
+use App\Http\Controllers\GoalController;
 
 class WelcomeController extends Controller
 {
@@ -57,9 +58,14 @@ class WelcomeController extends Controller
                                 ->keyBy('category_id');
 
         $goals = Goal::where('created_by', Auth::id())
-                        ->where('currency_id', $selectedCurrencyId)
-                        ->orderBy('deadline', 'asc')
-                        ->get();
+                    ->where('currency_id', $selectedCurrencyId)
+                    ->orderBy('deadline', 'asc')
+                    ->get();
+            
+        foreach ($goals as $goal) {
+            $account = Account::find($goal->account_id);
+            $goal->current_value = $goal->getGoalCurrentBalance($account ? $account->currency_id : $selectedCurrencyId);
+        }
        
         return view('welcome', compact('currencies', 'selectedCurrency', 'totalExpenses', 'totalIncome', 'currentBalance', 'categories', 'sortBy', 'userBudgets', 'goals'));
     }

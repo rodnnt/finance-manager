@@ -33,13 +33,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="current_value" class="form-label fs-6 fs-md-5 fs-lg-4">Valor Atual:</label>
-            <input type="number" step="0.01" class="form-control" name="current_value"
-                id="current_value" value="{{$goal->current_value}}"
-                placeholder="Informe o valor atual do objetivo" required>
-        </div>
-
-        <div class="mb-3">
             <label for="deadline" class="form-label fs-6 fs-md-5 fs-lg-4">Data Limite:</label>
             <input type="date" class="form-control" name="deadline"
                 id="deadline" value="{{$goal->deadline}}" required>

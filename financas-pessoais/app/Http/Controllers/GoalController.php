@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Goal;
 use App\Models\Account;
-use App\Models\Currency;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,6 +15,13 @@ class GoalController extends Controller
             ->where('goals.created_by', Auth::id())
             ->get();
         
+        foreach ($goals as $goal) {
+            $account = Account::find($goal->account_id);
+            $selectedCurrencyId = $account ? $account->currency_id : 10;
+
+            $goal->current_value = $goal->getGoalCurrentBalance($selectedCurrencyId);
+        }
+    
         return view('goals.index', compact('goals'));
     }
 
